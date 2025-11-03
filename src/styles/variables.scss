@@ -1,0 +1,53 @@
+// 简约浅色主题 + 荧光绿点缀
+$bg-primary: linear-gradient(135deg, #fafbfc 0%, #f5f7fa 100%);
+$bg-secondary: rgba(255, 255, 255, 0.98);
+$card-bg: rgba(255, 255, 255, 0.95);
+$card-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+$card-border: rgba(226, 232, 240, 0.8);
+
+// 荧光绿 - 仅作为强调色使用
+$neon-green: #00E676;           // 荧光绿主色
+$neon-green-glow: rgba(0, 230, 118, 0.5);
+$neon-green-light: #69F0AE;     // 浅荧光绿
+
+// 主色调 - 中性专业
+$primary-color: #475569;        // 深灰蓝
+$primary-light: #64748B;
+$primary-dark: #334155;
+
+// 辅助色 - 中性配色
+$success-color: #00E676;        // 荧光绿
+$success-light: #69F0AE;
+$warning-color: #FFA726;
+$warning-light: #FFB74D;
+$danger-color: #EF5350;
+$danger-light: #E57373;
+$info-color: #64748B;
+$info-light: #94A3B8;
+
+// 文字颜色
+$text-primary: #1E293B;
+$text-secondary: #64748B;
+$text-tertiary: #94A3B8;
+
+// 边框
+$border-color: #E2E8F0;
+$divider-color: #F1F5F9;
+
+// 圆角 - 更简洁优雅
+$border-radius: 12px;
+$border-radius-lg: 16px;
+$border-radius-xl: 20px;
+
+// 发光效果 - 荧光绿点缀
+$glow-neon: 0 0 20px rgba(0, 230, 118, 0.6), 0 0 40px rgba(0, 230, 118, 0.3);
+$glow-neon-subtle: 0 0 12px rgba(0, 230, 118, 0.4);
+$glow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+// 间距系统
+$spacing-xs: 8px;
+$spacing-sm: 12px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-2xl: 48px;

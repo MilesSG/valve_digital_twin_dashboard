@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: $bg-primary;
+  color: $text-primary;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+
+// 卡片通用样式 - 简约科技风
+.card-neon {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: $border-radius-lg;
+  border: 1px solid $card-border;
+  box-shadow: $glow-card;
+  backdrop-filter: blur(8px);
+  padding: $spacing-lg;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  // 左上角荧光绿装饰线
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 40px;
+    background: linear-gradient(180deg, $neon-green, transparent);
+    box-shadow: $glow-neon-subtle;
+    opacity: 0.8;
+  }
+
+  &:hover {
+    border-color: rgba(0, 230, 118, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+    
+    &::before {
+      opacity: 1;
+      box-shadow: $glow-neon;
+    }
+  }
+}
+
+// 标题样式 - 荧光绿点缀
+.section-title-neon {
+  font-size: 17px;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: $spacing-lg;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 3px;
+    height: 20px;
+    background: $neon-green;
+    border-radius: 2px;
+    box-shadow: $glow-neon-subtle;
+  }
+
+  .title-dot {
+    width: 6px;
+    height: 6px;
+    background: $neon-green;
+    border-radius: 50%;
+    box-shadow: $glow-neon-subtle;
+    animation: pulse-dot 3s ease-in-out infinite;
+    margin-left: auto;
+  }
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+  
+  &:hover {
+    background: $neon-green;
+    box-shadow: $glow-neon-subtle;
+  }
+}
+
+// 动画
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes neon-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+}
+
+// Element Plus 覆盖
+.el-button--primary {
+  background: $neon-green;
+  border: none;
+  box-shadow: $glow-neon-subtle;
+  
+  &:hover {
+    background: $neon-green-light;
+    box-shadow: $glow-neon;
+    transform: translateY(-2px);
+  }
+}
+
+// 响应式
+@media (max-width: 1600px) {
+  body {
+    zoom: 0.85;
+  }
+}
+
+@media (max-width: 1366px) {
+  body {
+    zoom: 0.75;
+  }
+}
