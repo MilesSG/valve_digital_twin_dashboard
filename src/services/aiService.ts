@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// 从环境变量读取 API Key（生产环境请配置 .env.local）
-const DEEPSEEK_API_KEY = import.meta.env.VITE_DEEPSEEK_API_KEY || ''
+// DeepSeek API 配置
+const DEEPSEEK_API_KEY = import.meta.env.VITE_DEEPSEEK_API_KEY || 'sk-a9eb1809c54c416e96f31c4e3a1955e3'
 const DEEPSEEK_BASE_URL = 'https://api.deepseek.com'
 
 // 注意：DeepSeek API 不支持联网检索
