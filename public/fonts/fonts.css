@@ -1,0 +1,25 @@
+/* 数字显示专用字体 - 使用系统自带的优质字体 */
+
+/* 方案1: 使用系统自带的DIN类字体（Windows/Mac都有） */
+@font-face {
+  font-family: 'Digital Display';
+  src: local('Segoe UI'),
+       local('SF Pro Display'),
+       local('Helvetica Neue'),
+       local('Arial');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 方案2: 使用等宽数字字体 */
+@font-face {
+  font-family: 'Number Display';
+  src: local('Consolas'),
+       local('Monaco'),
+       local('Courier New');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+

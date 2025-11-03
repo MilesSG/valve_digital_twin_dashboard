@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { getProducts, getOrders, getRegionSales, getCustomers, getSalesTrend, getDashboardStats } from '@/api/business'
+import { getProducts, getOrders, getRegionSales, getCustomers, getSalesTrend, getDashboardStats, getRealTimeData } from '@/api/business'
 import type { Product, Order, RegionSales, Customer, SalesTrend, DashboardStats } from '@/types'
 
 export const useBusinessStore = defineStore('business', () => {
@@ -55,27 +55,121 @@ export const useBusinessStore = defineStore('business', () => {
   async function loadData() {
     loading.value = true
     try {
-      const [productsData, ordersData, regionData, customersData, trendData, statsData] = await Promise.all([
-        getProducts(),
-        getOrders(50),
-        getRegionSales(),
-        getCustomers(100),
-        getSalesTrend(),
-        getDashboardStats()
-      ])
+      // 首先尝试加载真实数据（从Excel导入的）
+      const realData = await getRealTimeData()
       
-      products.value = productsData
-      orders.value = ordersData
-      regionSales.value = regionData
-      customers.value = customersData
-      salesTrend.value = trendData
-      stats.value = statsData
+      if (realData && realData.dataSource) {
+        console.log('✅ 使用真实数据:', realData.dataSource, realData.updateTime)
+        // 使用真实数据
+        loadRealData(realData)
+      } else {
+        console.log('📊 使用模拟数据（Demo）')
+        // 使用模拟数据
+        await loadMockData()
+      }
+      
       lastUpdateTime.value = new Date()
     } catch (error) {
       console.error('加载数据失败:', error)
+      // 出错时使用模拟数据
+      await loadMockData()
     } finally {
       loading.value = false
     }
+  }
+  
+  // 加载真实数据（从Excel导入）
+  function loadRealData(data: any) {
+    // 订单数据
+    if (data.orders) {
+      // 转换为系统需要的格式
+      const orderList: Order[] = data.orders.trend?.map((item: any, index: number) => ({
+        id: `ORDER-${index + 1}`,
+        orderNo: `SO${item.date.replace(/-/g, '')}${String(index + 1).padStart(3, '0')}`,
+        customer: '客户' + (index % 10 + 1),
+        amount: item.amount || 0,
+        status: index % 4 === 0 ? 'completed' : index % 4 === 1 ? 'processing' : index % 4 === 2 ? 'pending' : 'cancelled',
+        date: item.date,
+        product: '阀门产品'
+      })) || []
+      orders.value = orderList
+    }
+    
+    // 生产数据转换为产品数据
+    if (data.production && Array.isArray(data.production)) {
+      products.value = data.production.map((item: any, index: number) => ({
+        id: index + 1,
+        name: item.name,
+        category: item.name,
+        price: 0,
+        sales: item.output || 0,
+        inventory: item.output || 0,
+        status: item.status === 'running' ? 'normal' : 'warning'
+      }))
+    }
+    
+    // 客户数据
+    if (data.customers && Array.isArray(data.customers)) {
+      customers.value = data.customers.map((item: any, index: number) => ({
+        id: index + 1,
+        name: item.name,
+        contact: item.contact || '',
+        phone: '',
+        amount: item.amount || 0,
+        orders: item.orderCount || 0,
+        level: item.level || 'C',
+        region: '华东'
+      }))
+    }
+    
+    // 销售趋势
+    if (data.orders?.trend) {
+      salesTrend.value = data.orders.trend.map((item: any) => ({
+        date: item.date,
+        sales: item.amount || 0,
+        orders: item.count || 0
+      }))
+    }
+    
+    // 统计数据
+    stats.value = {
+      totalOrders: data.orders?.total || 0,
+      totalSales: data.orders?.trend?.reduce((sum: number, item: any) => sum + (item.amount || 0), 0) || 0,
+      totalProduction: data.production?.reduce((sum: number, item: any) => sum + (item.output || 0), 0) || 0,
+      totalCustomers: data.customers?.length || 0,
+      orderGrowth: 0,
+      salesGrowth: 0,
+      productionGrowth: 0,
+      customerGrowth: 0
+    }
+    
+    // 区域销售（暂时使用模拟数据）
+    regionSales.value = [
+      { region: '华东', sales: stats.value.totalSales * 0.35, orders: stats.value.totalOrders * 0.35 },
+      { region: '华北', sales: stats.value.totalSales * 0.25, orders: stats.value.totalOrders * 0.25 },
+      { region: '华南', sales: stats.value.totalSales * 0.20, orders: stats.value.totalOrders * 0.20 },
+      { region: '华中', sales: stats.value.totalSales * 0.12, orders: stats.value.totalOrders * 0.12 },
+      { region: '西南', sales: stats.value.totalSales * 0.08, orders: stats.value.totalOrders * 0.08 }
+    ]
+  }
+  
+  // 加载模拟数据
+  async function loadMockData() {
+    const [productsData, ordersData, regionData, customersData, trendData, statsData] = await Promise.all([
+      getProducts(),
+      getOrders(50),
+      getRegionSales(),
+      getCustomers(100),
+      getSalesTrend(),
+      getDashboardStats()
+    ])
+    
+    products.value = productsData
+    orders.value = ordersData
+    regionSales.value = regionData
+    customers.value = customersData
+    salesTrend.value = trendData
+    stats.value = statsData
   }
 
   // 刷新数据

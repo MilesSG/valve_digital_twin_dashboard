@@ -6,7 +6,11 @@
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx --fix --ignore-path .gitignore",
+    "data:demo": "node scripts/generate-demo-excel.cjs",
+    "data:import": "node scripts/import-excel.cjs",
+    "data:server": "node scripts/setup-backend.cjs",
+    "data:help": "echo '生成Demo: npm run data:demo  |  导入数据: npm run data:import  |  启动后端: npm run data:server'"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
@@ -27,7 +31,8 @@
     "three": "^0.160.0",
     "vue": "^3.4.21",
     "vue-echarts": "^6.6.9",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",

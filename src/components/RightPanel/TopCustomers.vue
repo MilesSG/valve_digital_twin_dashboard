@@ -12,12 +12,12 @@
         <div class="customer-info">
           <div class="customer-name">{{ customer.name }}</div>
           <div class="customer-meta">
-            <span class="industry">{{ customer.industry }}</span>
-            <span class="region">{{ customer.region }}</span>
+            <span class="contact">{{ customer.contact }}</span>
+            <span class="orders">{{ customer.orders || customer.orderCount }}单</span>
           </div>
         </div>
         <div class="customer-stats">
-          <div class="amount neon-text">¥{{ formatAmount(customer.totalAmount) }}</div>
+          <div class="amount neon-text">¥{{ formatAmount(customer.amount) }}</div>
           <div class="level-badge" :class="`level-${customer.level}`">{{ customer.level }}</div>
         </div>
       </div>
@@ -33,7 +33,7 @@ const store = useBusinessStore()
 
 const topCustomers = computed(() => {
   return [...store.customers]
-    .sort((a, b) => b.totalAmount - a.totalAmount)
+    .sort((a, b) => (b.amount || 0) - (a.amount || 0))
     .slice(0, 10)
 })
 

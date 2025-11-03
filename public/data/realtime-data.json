@@ -1,0 +1,334 @@
+{
+  "orders": {
+    "total": 93,
+    "completed": 49,
+    "processing": 23,
+    "pending": 21,
+    "cancelled": 0,
+    "trend": [
+      {
+        "date": "2025-10-08",
+        "count": 3,
+        "amount": 159977
+      },
+      {
+        "date": "2025-10-09",
+        "count": 3,
+        "amount": 219830
+      },
+      {
+        "date": "2025-10-10",
+        "count": 3,
+        "amount": 264395
+      },
+      {
+        "date": "2025-10-11",
+        "count": 2,
+        "amount": 151708
+      },
+      {
+        "date": "2025-10-12",
+        "count": 2,
+        "amount": 114935
+      },
+      {
+        "date": "2025-10-13",
+        "count": 4,
+        "amount": 166698
+      },
+      {
+        "date": "2025-10-14",
+        "count": 2,
+        "amount": 120959
+      },
+      {
+        "date": "2025-10-15",
+        "count": 4,
+        "amount": 259173
+      },
+      {
+        "date": "2025-10-16",
+        "count": 3,
+        "amount": 84014
+      },
+      {
+        "date": "2025-10-17",
+        "count": 2,
+        "amount": 105892
+      },
+      {
+        "date": "2025-10-18",
+        "count": 3,
+        "amount": 184152
+      },
+      {
+        "date": "2025-10-19",
+        "count": 4,
+        "amount": 208913
+      },
+      {
+        "date": "2025-10-20",
+        "count": 2,
+        "amount": 66901
+      },
+      {
+        "date": "2025-10-21",
+        "count": 3,
+        "amount": 245983
+      },
+      {
+        "date": "2025-10-22",
+        "count": 3,
+        "amount": 160880
+      },
+      {
+        "date": "2025-10-23",
+        "count": 3,
+        "amount": 197793
+      },
+      {
+        "date": "2025-10-24",
+        "count": 3,
+        "amount": 177887
+      },
+      {
+        "date": "2025-10-25",
+        "count": 4,
+        "amount": 228949
+      },
+      {
+        "date": "2025-10-26",
+        "count": 2,
+        "amount": 91302
+      },
+      {
+        "date": "2025-10-27",
+        "count": 4,
+        "amount": 267948
+      },
+      {
+        "date": "2025-10-28",
+        "count": 4,
+        "amount": 205733
+      },
+      {
+        "date": "2025-10-29",
+        "count": 4,
+        "amount": 232371
+      },
+      {
+        "date": "2025-10-30",
+        "count": 3,
+        "amount": 227999
+      },
+      {
+        "date": "2025-10-31",
+        "count": 4,
+        "amount": 244741
+      },
+      {
+        "date": "2025-11-01",
+        "count": 6,
+        "amount": 297302
+      },
+      {
+        "date": "2025-11-02",
+        "count": 5,
+        "amount": 298423
+      },
+      {
+        "date": "2025-11-03",
+        "count": 8,
+        "amount": 481210
+      }
+    ],
+    "lastUpdate": "2025-11-03T12:04:25.668Z"
+  },
+  "production": [
+    {
+      "name": "闸阀生产线",
+      "output": 723,
+      "qualifiedRate": 96.05,
+      "defectRate": 3.95,
+      "status": "running"
+    },
+    {
+      "name": "球阀生产线",
+      "output": 773,
+      "qualifiedRate": 94.88,
+      "defectRate": 5.12,
+      "status": "running"
+    },
+    {
+      "name": "蝶阀生产线",
+      "output": 809,
+      "qualifiedRate": 94.92,
+      "defectRate": 5.08,
+      "status": "running"
+    },
+    {
+      "name": "截止阀生产线",
+      "output": 794,
+      "qualifiedRate": 95.17,
+      "defectRate": 4.83,
+      "status": "running"
+    },
+    {
+      "name": "止回阀生产线",
+      "output": 744,
+      "qualifiedRate": 95.09,
+      "defectRate": 4.91,
+      "status": "running"
+    }
+  ],
+  "customers": [
+    {
+      "name": "上海华东石化",
+      "amount": 1250000,
+      "level": "VIP",
+      "contact": "张经理",
+      "orderCount": 45
+    },
+    {
+      "name": "江苏长江电力",
+      "amount": 980000,
+      "level": "A",
+      "contact": "李总",
+      "orderCount": 38
+    },
+    {
+      "name": "浙江能源集团",
+      "amount": 850000,
+      "level": "A",
+      "contact": "王主任",
+      "orderCount": 32
+    },
+    {
+      "name": "安徽电力公司",
+      "amount": 720000,
+      "level": "A",
+      "contact": "赵工",
+      "orderCount": 28
+    },
+    {
+      "name": "山东石化集团",
+      "amount": 650000,
+      "level": "B",
+      "contact": "钱总",
+      "orderCount": 25
+    },
+    {
+      "name": "江西燃气公司",
+      "amount": 520000,
+      "level": "B",
+      "contact": "孙经理",
+      "orderCount": 22
+    },
+    {
+      "name": "福建化工集团",
+      "amount": 450000,
+      "level": "B",
+      "contact": "周总",
+      "orderCount": 18
+    },
+    {
+      "name": "湖南电力公司",
+      "amount": 380000,
+      "level": "B",
+      "contact": "吴主任",
+      "orderCount": 15
+    },
+    {
+      "name": "河南能源集团",
+      "amount": 320000,
+      "level": "C",
+      "contact": "郑经理",
+      "orderCount": 12
+    },
+    {
+      "name": "湖北石化有限公司",
+      "amount": 280000,
+      "level": "C",
+      "contact": "冯工",
+      "orderCount": 10
+    },
+    {
+      "name": "广东天然气公司",
+      "amount": 245000,
+      "level": "C",
+      "contact": "陈总",
+      "orderCount": 9
+    },
+    {
+      "name": "广西能源集团",
+      "amount": 210000,
+      "level": "C",
+      "contact": "褚经理",
+      "orderCount": 8
+    },
+    {
+      "name": "四川电力公司",
+      "amount": 185000,
+      "level": "C",
+      "contact": "卫主任",
+      "orderCount": 7
+    },
+    {
+      "name": "重庆石化",
+      "amount": 160000,
+      "level": "C",
+      "contact": "蒋工",
+      "orderCount": 6
+    },
+    {
+      "name": "云南燃气集团",
+      "amount": 135000,
+      "level": "C",
+      "contact": "沈经理",
+      "orderCount": 5
+    }
+  ],
+  "quality": {
+    "qualifiedRate": 94.88,
+    "defectRate": 5.12,
+    "trend": [
+      {
+        "date": "2025-10-28",
+        "qualifiedRate": 96,
+        "defectRate": 4
+      },
+      {
+        "date": "2025-10-29",
+        "qualifiedRate": 96.25,
+        "defectRate": 3.75
+      },
+      {
+        "date": "2025-10-30",
+        "qualifiedRate": 91.03,
+        "defectRate": 8.97
+      },
+      {
+        "date": "2025-10-31",
+        "qualifiedRate": 95.24,
+        "defectRate": 4.76
+      },
+      {
+        "date": "2025-11-01",
+        "qualifiedRate": 96.36,
+        "defectRate": 3.64
+      },
+      {
+        "date": "2025-11-02",
+        "qualifiedRate": 92.59,
+        "defectRate": 7.41
+      },
+      {
+        "date": "2025-11-03",
+        "qualifiedRate": 97.1,
+        "defectRate": 2.9
+      }
+    ]
+  },
+  "updateTime": "2025-11-03T12:04:25.669Z",
+  "dataSource": "Excel导入"
+}
