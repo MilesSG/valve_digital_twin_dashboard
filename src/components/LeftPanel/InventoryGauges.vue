@@ -72,13 +72,12 @@ const gaugeSize = 72
 const radius = 26
 const strokeWidth = 6 // 加粗线条，提高可见性
 
-// 库存数据
+// 库存数据 - 只保留4个主要产品
 const inventoryData = ref([
   { name: t('product.gateValve'), percentage: 78, target: 100 },
   { name: t('product.ballValve'), percentage: 45, target: 100 },
   { name: t('product.checkValve'), percentage: 92, target: 100 },
-  { name: t('product.globeValve'), percentage: 68, target: 100 },
-  { name: t('product.butterflyValve'), percentage: 85, target: 100 },
+  { name: t('product.globeValve'), percentage: 68, target: 100 }
 ])
 
 // 苹果风格配色方案
@@ -139,13 +138,13 @@ function polarToCartesian(cx: number, cy: number, r: number, angle: number) {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  max-height: 260px;
+  height: 220px;
 
   .gauges-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
-    padding: 6px 2px;
+    padding: 4px 2px;
 
       .gauge-item {
       display: flex;
