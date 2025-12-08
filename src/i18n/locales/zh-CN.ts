@@ -31,7 +31,7 @@ export default {
     totalCustomers: '客户总数',
     unit: {
       order: '单',
-      yuan: '元',
+      yuan: '万元',
       piece: '件',
       company: '家',
     },

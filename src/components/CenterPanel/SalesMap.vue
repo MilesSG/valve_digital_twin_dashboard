@@ -36,7 +36,7 @@ function updateChart() {
       trigger: 'item',
       formatter: (params: any) => {
         if (params.data) {
-          return `${params.data.name}<br/>销售额: ¥${(params.data.sales / 10000).toFixed(0)}万<br/>订单数: ${params.data.orders}`
+          return `${params.data.name}<br/>销售额: ¥${(params.data.sales / 10000).toFixed(0)}<br/>订单数: ${params.data.orders}`
         }
         return ''
       }

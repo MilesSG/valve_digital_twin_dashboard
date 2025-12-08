@@ -57,7 +57,7 @@ function formatMoney(value: number): string {
   if (value >= 100000000) {
     return (value / 100000000).toFixed(2) + '亿'
   } else if (value >= 10000) {
-    return (value / 10000).toFixed(0) + '万'
+    return (value / 10000).toFixed(0) + ''
   }
   return value.toString()
 }
