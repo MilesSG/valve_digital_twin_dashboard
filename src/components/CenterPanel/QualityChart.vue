@@ -1,27 +1,75 @@
 <template>
   <div class="quality-chart card-neon">
     <div class="section-title-neon">
-      <span>质量检测统计</span>
+      <span>{{ t('chart.quality') }}</span>
       <div class="title-dot"></div>
+      <div class="quality-summary">
+        <div class="summary-item" :class="qualityStatus">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <circle cx="7" cy="7" r="6" :fill="qualityStatusColor" opacity="0.2"/>
+            <circle cx="7" cy="7" r="3" :fill="qualityStatusColor"/>
+          </svg>
+          <span class="summary-label">{{ t('chart.qualityRate') }}:</span>
+          <span class="summary-value">{{ currentQualityRate }}%</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-item">
+          <span class="summary-text">{{ qualityStatusText }}</span>
+        </div>
+      </div>
     </div>
     <div ref="chartRef" class="chart-container"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import * as echarts from 'echarts'
 
+const { t } = useI18n()
 const chartRef = ref<HTMLDivElement>()
 let chartInstance: echarts.ECharts | null = null
+
+const hours = Array.from({ length: 24 }, (_, i) => `${i}:00`)
+let qualifiedData = ref(Array.from({ length: 24 }, () => 92 + Math.random() * 6))
+let defectData = ref(Array.from({ length: 24 }, () => 3 + Math.random() * 5))
+
+// 计算当前合格率（最新一小时）
+const currentQualityRate = computed(() => {
+  return Math.round(qualifiedData.value[qualifiedData.value.length - 1])
+})
+
+// 质量状态
+const qualityStatus = computed(() => {
+  const rate = currentQualityRate.value
+  if (rate >= 95) return 'excellent'
+  if (rate >= 90) return 'good'
+  return 'warning'
+})
+
+// 质量状态颜色
+const qualityStatusColor = computed(() => {
+  const status = qualityStatus.value
+  if (status === 'excellent') return '#00E676'
+  if (status === 'good') return '#3B82F6'
+  return '#FFA726'
+})
+
+// 质量状态文本
+const qualityStatusText = computed(() => {
+  const rate = currentQualityRate.value
+  const warningLine = 95
+  if (rate >= warningLine) {
+    return `高于 ${warningLine}% ${t('chart.warningLine')}`
+  } else {
+    return `低于 ${warningLine}% ${t('chart.warningLine')}`
+  }
+})
 
 function initChart() {
   if (!chartRef.value) return
   chartInstance = echarts.init(chartRef.value)
-
-  const hours = Array.from({ length: 24 }, (_, i) => `${i}:00`)
-  let qualifiedData = Array.from({ length: 24 }, () => 92 + Math.random() * 6)
-  let defectData = Array.from({ length: 24 }, () => 3 + Math.random() * 5)
 
   chartInstance.setOption({
     backgroundColor: 'transparent',
@@ -29,23 +77,30 @@ function initChart() {
       trigger: 'axis',
       axisPointer: {
         type: 'cross'
+      },
+      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+      borderColor: '#E2E8F0',
+      borderWidth: 1,
+      textStyle: {
+        color: '#1E293B'
       }
     },
     legend: {
-      data: ['合格率', '不良率'],
+      data: ['合格率', '预警线'],
       top: 10,
+      right: 20,
       textStyle: {
         color: '#64748B',
-        fontSize: 13
+        fontSize: 12
       },
-      itemWidth: 20,
-      itemHeight: 10
+      itemWidth: 16,
+      itemHeight: 8
     },
     grid: {
       left: '3%',
       right: '4%',
       bottom: '3%',
-      top: '20%',
+      top: '8%',
       containLabel: true
     },
     xAxis: {
@@ -54,7 +109,8 @@ function initChart() {
       boundaryGap: false,
       axisLabel: {
         color: '#94A3B8',
-        fontSize: 11
+        fontSize: 11,
+        interval: 2
       },
       axisLine: {
         lineStyle: {
@@ -65,8 +121,11 @@ function initChart() {
     yAxis: {
       type: 'value',
       name: '百分比(%)',
+      min: 85,
+      max: 100,
       axisLabel: {
         color: '#64748B',
+        fontSize: 11,
         formatter: '{value}%'
       },
       splitLine: {
@@ -80,17 +139,17 @@ function initChart() {
       {
         name: '合格率',
         type: 'line',
-        data: qualifiedData,
+        data: qualifiedData.value,
         smooth: true,
         symbol: 'circle',
-        symbolSize: 6,
+        symbolSize: 5,
         itemStyle: {
           color: '#00E676'
         },
         lineStyle: {
-          width: 3,
-          shadowBlur: 10,
-          shadowColor: 'rgba(0, 230, 118, 0.5)'
+          width: 2.5,
+          shadowBlur: 8,
+          shadowColor: 'rgba(0, 230, 118, 0.4)'
         },
         areaStyle: {
           color: {
@@ -100,39 +159,38 @@ function initChart() {
             x2: 0,
             y2: 1,
             colorStops: [
-              { offset: 0, color: 'rgba(0, 230, 118, 0.2)' },
-              { offset: 1, color: 'rgba(0, 230, 118, 0.03)' }
+              { offset: 0, color: 'rgba(0, 230, 118, 0.15)' },
+              { offset: 1, color: 'rgba(0, 230, 118, 0.02)' }
             ]
           }
         }
       },
       {
-        name: '不良率',
+        name: '预警线',
         type: 'line',
-        data: defectData,
-        smooth: true,
-        symbol: 'circle',
-        symbolSize: 6,
-        itemStyle: {
-          color: '#EF5350'
-        },
+        data: Array(24).fill(95),
+        symbol: 'none',
         lineStyle: {
-          width: 3,
-          shadowBlur: 6,
-          shadowColor: 'rgba(239, 83, 80, 0.3)'
+          color: '#FFA726',
+          width: 2,
+          type: 'dashed'
         },
-        areaStyle: {
-          color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
-            colorStops: [
-              { offset: 0, color: 'rgba(239, 83, 80, 0.15)' },
-              { offset: 1, color: 'rgba(239, 83, 80, 0.03)' }
-            ]
-          }
+        markLine: {
+          silent: true,
+          symbol: 'none',
+          label: {
+            show: true,
+            position: 'end',
+            formatter: '95% 预警线',
+            color: '#FFA726',
+            fontSize: 11
+          },
+          lineStyle: {
+            color: '#FFA726',
+            type: 'dashed',
+            width: 2
+          },
+          data: [{ yAxis: 95 }]
         }
       }
     ]
@@ -140,16 +198,17 @@ function initChart() {
 
   // 实时更新数据
   setInterval(() => {
-    qualifiedData = qualifiedData.map(v => Math.max(90, Math.min(98, v + (Math.random() - 0.5) * 2)))
-    defectData = defectData.map(v => Math.max(1, Math.min(8, v + (Math.random() - 0.5) * 1)))
-    
+    qualifiedData.value = qualifiedData.value.map(v =>
+      Math.max(88, Math.min(98, v + (Math.random() - 0.5) * 3))
+    )
+
     chartInstance?.setOption({
       series: [
-        { data: qualifiedData },
-        { data: defectData }
+        { data: qualifiedData.value },
+        { data: Array(24).fill(95) }
       ]
     })
-  }, 2000)
+  }, 3000)
 }
 
 onMounted(() => {
@@ -159,12 +218,73 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/variables.scss";
+
 .quality-chart {
   flex: 1;
-  min-height: 420px;
-  
+  min-height: 0;
+
+  .section-title-neon {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+
+    .quality-summary {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 5px 12px;
+      background: rgba(0, 0, 0, 0.02);
+      border-radius: 8px;
+
+      .summary-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .summary-label {
+          font-size: 10px;
+          color: #64748B;
+          font-weight: 500;
+        }
+
+        .summary-value {
+          font-size: 15px;
+          font-weight: 800;
+          font-feature-settings: 'tnum';
+        }
+
+        .summary-text {
+          font-size: 10px;
+          font-weight: 500;
+          color: #64748B;
+        }
+
+        &.excellent .summary-value {
+          color: #00E676;
+        }
+
+        &.good .summary-value {
+          color: #3B82F6;
+        }
+
+        &.warning .summary-value {
+          color: #FFA726;
+        }
+      }
+
+      .summary-divider {
+        width: 1px;
+        height: 14px;
+        background: rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+
   .chart-container {
-    height: calc(100% - 56px);
+    height: calc(100% - 52px);
   }
 }
 </style>

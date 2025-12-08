@@ -1,7 +1,7 @@
 <template>
   <div class="sales-trend card-neon">
     <div class="section-title-neon">
-      <span>销售趋势（近30天）</span>
+      <span>{{ t('rightPanel.salesTrend30Days') }}</span>
       <div class="title-dot"></div>
     </div>
     <div ref="chartRef" class="chart-container"></div>
@@ -10,9 +10,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import * as echarts from 'echarts'
 import { useBusinessStore } from '@/stores/business'
 
+const { t } = useI18n()
 const store = useBusinessStore()
 const chartRef = ref<HTMLDivElement>()
 let chartInstance: echarts.ECharts | null = null
@@ -39,7 +41,7 @@ function updateChart() {
       }
     },
     legend: {
-      data: ['销售额(千元)', '订单数'],
+      data: [t('rightPanel.salesAmountK'), t('rightPanel.orderCount')],
       top: 10,
       textStyle: {
         color: '#64748B',
@@ -156,11 +158,11 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .sales-trend {
-  height: 400px;
+  height: 320px;
   flex-shrink: 0;
-  
+
   .chart-container {
-    height: calc(100% - 56px);
+    height: calc(100% - 52px);
   }
 }
 </style>

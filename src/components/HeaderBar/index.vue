@@ -10,21 +10,27 @@
             </el-icon>
           </div>
           <div class="logo-text">
-            <h1 class="company-name neon-text">法尔阀业</h1>
-            <p class="company-location">Intelligent Valve Control System</p>
+            <h1 class="company-name neon-text">{{ t('common.company') }}</h1>
+            <p class="company-location">{{ t('common.subtitle') }}</p>
           </div>
         </div>
       </div>
-      
+
       <div class="header-center">
-        <div class="title-main neon-text-gradient">数据可视化中心</div>
-        <div class="subtitle">Valve Data Visualization Center</div>
+        <div class="title-main neon-text-gradient">{{ t('common.system') }}</div>
+        <div class="subtitle">{{ t('common.systemSubtitle') }}</div>
       </div>
       
       <div class="header-right">
         <!-- AI预警面板 -->
         <AIWarningPanel />
-        
+
+        <!-- 语言切换按钮 -->
+        <div class="language-toggle" @click="toggleLocale" :title="t('common.language')">
+          <el-icon :size="18" color="#64748B"><ChatDotRound /></el-icon>
+          <span class="lang-text">{{ currentLocaleName }}</span>
+        </div>
+
         <div class="time-box">
           <div class="time-display neon-text">{{ currentTime }}</div>
           <div class="date-display">{{ currentDate }}</div>
@@ -33,7 +39,7 @@
           <el-icon :size="20" color="#F59E0B"><Sunny /></el-icon>
           <div class="weather-info">
             <span class="temp">28°C</span>
-            <span class="status">晴</span>
+            <span class="status">{{ t('weather.sunny') }}</span>
           </div>
         </div>
       </div>
@@ -43,9 +49,14 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { formatDateTime, formatDate } from '@/utils/format'
-import { Setting, Sunny } from '@element-plus/icons-vue'
+import { Setting, Sunny, ChatDotRound } from '@element-plus/icons-vue'
 import AIWarningPanel from '@/components/AI/AIWarningPanel.vue'
+import { useLocale } from '@/hooks/useLocale'
+
+const { t } = useI18n()
+const { toggleLocale, currentLocaleName } = useLocale()
 
 const currentTime = ref('')
 const currentDate = ref('')
@@ -214,6 +225,44 @@ onUnmounted(() => {
     gap: 20px;
     position: relative;
     z-index: 100;
+
+    .language-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 10px;
+      border: 1px solid $card-border;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+      min-width: 100px;
+      justify-content: center;
+
+      .lang-text {
+        font-size: 13px;
+        font-weight: 500;
+        color: $text-primary;
+        min-width: 45px;
+        text-align: center;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: $neon-green;
+        box-shadow: $glow-neon-subtle;
+        transform: translateY(-1px);
+
+        .lang-text {
+          color: $neon-green;
+        }
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
 
     .time-box {
       text-align: right;

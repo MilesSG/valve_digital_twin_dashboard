@@ -1,9 +1,9 @@
 <template>
   <div class="data-overview-premium">
     <StatCard
-      label="月度订单"
+      :label="t('overview.monthlyOrders')"
       :value="stats?.totalOrders || 0"
-      unit="单"
+      :unit="t('overview.unit.order')"
       neon-color="#475569"
       neon-gradient="linear-gradient(135deg, #475569, #64748B)"
       :growth="stats?.orderGrowth"
@@ -11,9 +11,9 @@
       :progress="82"
     />
     <StatCard
-      label="销售额"
+      :label="t('overview.salesAmount')"
       :value="formatMoney(stats?.totalSales || 0)"
-      unit="元"
+      :unit="t('overview.unit.yuan')"
       neon-color="#00E676"
       neon-gradient="linear-gradient(135deg, #00E676, #69F0AE)"
       :growth="stats?.salesGrowth"
@@ -21,9 +21,9 @@
       :progress="95"
     />
     <StatCard
-      label="生产产量"
+      :label="t('overview.production')"
       :value="stats?.totalProduction || 0"
-      unit="件"
+      :unit="t('overview.unit.piece')"
       neon-color="#64748B"
       neon-gradient="linear-gradient(135deg, #64748B, #94A3B8)"
       :growth="stats?.productionGrowth || 0"
@@ -31,9 +31,9 @@
       :progress="88"
     />
     <StatCard
-      label="客户总数"
+      :label="t('overview.totalCustomers')"
       :value="stats?.totalCustomers || 0"
-      unit="家"
+      :unit="t('overview.unit.company')"
       neon-color="#475569"
       neon-gradient="linear-gradient(135deg, #475569, #64748B)"
       :growth="stats?.customerGrowth"
@@ -45,9 +45,11 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useBusinessStore } from '@/stores/business'
 import StatCard from './StatCard.vue'
 
+const { t } = useI18n()
 const store = useBusinessStore()
 const stats = computed(() => store.stats)
 
@@ -65,8 +67,8 @@ function formatMoney(value: number): string {
 .data-overview-premium {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  padding: 4px;
+  gap: 18px;
+  padding: 2px;
   
   // 为卡片添加错落的入场动画
   @for $i from 1 through 4 {

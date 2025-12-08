@@ -28,6 +28,7 @@
         <!-- 左侧 -->
         <div class="left-section">
           <ProductDisplay />
+          <InventoryGauges />
           <OrderStatistics />
         </div>
 
@@ -52,6 +53,7 @@ import { onMounted } from 'vue'
 import HeaderBar from '@/components/HeaderBar/index.vue'
 import DataOverview from '@/components/DataOverview/index.vue'
 import ProductDisplay from '@/components/LeftPanel/ProductDisplay.vue'
+import InventoryGauges from '@/components/LeftPanel/InventoryGauges.vue'
 import OrderStatistics from '@/components/LeftPanel/OrderStatistics.vue'
 import ProductionChart from '@/components/CenterPanel/ProductionChart.vue'
 import QualityChart from '@/components/CenterPanel/QualityChart.vue'
@@ -139,12 +141,13 @@ onMounted(() => {
 
   .main-content {
     height: calc(100vh - 90px);
-    padding: 20px 32px 28px;
+    padding: 16px 28px 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     position: relative;
     z-index: 1;
+    overflow: hidden;
   }
 
   .overview-section {
@@ -155,21 +158,39 @@ onMounted(() => {
     flex: 1;
     display: grid;
     grid-template-columns: 320px 1fr 340px;
-    gap: 20px;
+    gap: 16px;
     min-height: 0;
+    overflow: hidden;
 
     .left-section,
     .right-section {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 14px;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 2px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
     }
 
     .center-section {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
       min-width: 0;
+      min-height: 0;
     }
   }
 }

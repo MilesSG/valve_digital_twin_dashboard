@@ -1,7 +1,7 @@
 <template>
   <div class="top-customers card-neon">
     <div class="section-title-neon">
-      <span>重点客户排行</span>
+      <span>{{ t('rightPanel.topCustomersRank') }}</span>
       <div class="title-dot"></div>
     </div>
     <div class="customer-list">
@@ -27,8 +27,10 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useBusinessStore } from '@/stores/business'
 
+const { t } = useI18n()
 const store = useBusinessStore()
 
 const topCustomers = computed(() => {
@@ -47,24 +49,24 @@ function formatAmount(amount: number): string {
 
 <style lang="scss" scoped>
 .top-customers {
-  flex: 1;
+  flex-shrink: 0;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  
+
   .customer-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     flex: 1;
     overflow-y: auto;
     padding-right: 4px;
-    
+
     .customer-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px;
+      gap: 8px;
+      padding: 8px;
       background: rgba(255, 255, 255, 0.7);
       border-radius: 8px;
       border: 1px solid $card-border;
@@ -98,14 +100,14 @@ function formatAmount(amount: number): string {
       }
       
       .rank-badge {
-        width: 30px;
-        height: 30px;
-        border-radius: 8px;
+        width: 26px;
+        height: 26px;
+        border-radius: 6px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 700;
-        font-size: 13px;
+        font-size: 12px;
         flex-shrink: 0;
         
         &.rank-1 {
@@ -134,39 +136,39 @@ function formatAmount(amount: number): string {
       .customer-info {
         flex: 1;
         min-width: 0;
-        
+
         .customer-name {
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 600;
           color: #1E293B;
-          margin-bottom: 3px;
+          margin-bottom: 2px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
-        
+
         .customer-meta {
-          font-size: 10px;
+          font-size: 9px;
           color: #94A3B8;
           display: flex;
-          gap: 6px;
-          
+          gap: 4px;
+
           span {
-            padding: 2px 8px;
+            padding: 2px 6px;
             background: rgba(0, 0, 0, 0.04);
-            border-radius: 4px;
+            border-radius: 3px;
           }
         }
       }
-      
+
       .customer-stats {
         text-align: right;
         flex-shrink: 0;
-        
+
         .amount {
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 700;
-          margin-bottom: 3px;
+          margin-bottom: 2px;
         }
         
         .level-badge {

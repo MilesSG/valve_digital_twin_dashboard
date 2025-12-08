@@ -1,7 +1,7 @@
 <template>
   <div class="order-statistics card-neon">
     <div class="section-title-neon">
-      <span>订单状态分布</span>
+      <span>{{ t('leftPanel.orderStatusDist') }}</span>
       <div class="title-dot"></div>
     </div>
     <div class="stats-grid">
@@ -26,8 +26,8 @@
     <!-- 订单趋势迷你图 -->
     <div class="order-trend-mini">
       <div class="trend-header">
-        <span class="trend-title">近7日订单趋势</span>
-        <span class="trend-total">总计: <strong>{{ totalOrders }}</strong></span>
+        <span class="trend-title">{{ t('leftPanel.orderTrend7Days') }}</span>
+        <span class="trend-total">{{ t('leftPanel.total') }}: <strong>{{ totalOrders }}</strong></span>
       </div>
       <div ref="trendChartRef" class="trend-chart"></div>
     </div>
@@ -36,20 +36,22 @@
 
 <script setup lang="ts">
 import { computed, ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useBusinessStore } from '@/stores/business'
 import { Clock, Loading, CircleCheck, Close } from '@element-plus/icons-vue'
 import * as echarts from 'echarts'
 
+const { t } = useI18n()
 const store = useBusinessStore()
 const trendChartRef = ref<HTMLDivElement>()
 let chartInstance: echarts.ECharts | null = null
 
 const orderStats = computed(() => {
   const total = Object.values(store.ordersByStatus).reduce((a, b) => a + b, 0) || 1
-  
+
   return [
     {
-      label: '处理中',
+      label: t('order.statusProcessing'),
       value: store.ordersByStatus['processing'] || 0,
       icon: Loading,
       neonColor: '#64748B',
@@ -57,7 +59,7 @@ const orderStats = computed(() => {
       progress: ((store.ordersByStatus['processing'] || 0) / total) * 100
     },
     {
-      label: '已完成',
+      label: t('order.statusCompleted'),
       value: store.ordersByStatus['completed'] || 0,
       icon: CircleCheck,
       neonColor: '#00E676',
@@ -65,7 +67,7 @@ const orderStats = computed(() => {
       progress: ((store.ordersByStatus['completed'] || 0) / total) * 100
     },
     {
-      label: '待处理',
+      label: t('order.statusPending'),
       value: store.ordersByStatus['pending'] || 0,
       icon: Clock,
       neonColor: '#FFA726',
@@ -73,7 +75,7 @@ const orderStats = computed(() => {
       progress: ((store.ordersByStatus['pending'] || 0) / total) * 100
     },
     {
-      label: '已取消',
+      label: t('order.statusCanceled'),
       value: store.ordersByStatus['cancelled'] || 0,
       icon: Close,
       neonColor: '#94A3B8',
@@ -160,21 +162,21 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .order-statistics {
-  flex: 1;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: $spacing-lg;
+  gap: 12px;
   
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    
+    gap: 10px;
+
     .stat-item {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding: 14px;
+      gap: 8px;
+      padding: 10px;
       background: rgba(255, 255, 255, 0.7);
       border-radius: 10px;
       border: 1px solid $card-border;
@@ -208,9 +210,9 @@ onMounted(() => {
       }
       
       .stat-icon-neon {
-        width: 44px;
-        height: 44px;
-        border-radius: 10px;
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -218,28 +220,28 @@ onMounted(() => {
         border: 1px solid;
         transition: all 0.3s ease;
       }
-      
+
       .stat-info {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        
+
         .stat-value {
-          font-size: 24px;
+          font-size: 20px;
           font-weight: 700;
           font-variant-numeric: tabular-nums;
         }
-        
+
         .stat-label {
-          font-size: 12px;
+          font-size: 11px;
           color: $text-secondary;
           font-weight: 600;
         }
       }
-      
+
       .stat-progress {
         .progress-bar {
-          height: 3px;
+          height: 2.5px;
           background: rgba(0, 0, 0, 0.04);
           border-radius: 2px;
           overflow: hidden;
@@ -257,7 +259,7 @@ onMounted(() => {
   }
 
   .order-trend-mini {
-    padding: $spacing-md;
+    padding: 10px;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 10px;
     border: 1px solid $card-border;
@@ -266,28 +268,28 @@ onMounted(() => {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: $spacing-sm;
-      
+      margin-bottom: 8px;
+
       .trend-title {
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
         color: $text-secondary;
       }
-      
+
       .trend-total {
-        font-size: 12px;
+        font-size: 11px;
         color: $text-tertiary;
-        
+
         strong {
           color: $neon-green;
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 700;
         }
       }
     }
 
     .trend-chart {
-      height: 80px;
+      height: 70px;
     }
   }
 }

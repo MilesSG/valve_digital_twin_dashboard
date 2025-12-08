@@ -1,7 +1,7 @@
 <template>
   <div class="product-display card-neon">
     <div class="section-title-neon">
-      <span>产品类别分布</span>
+      <span>{{ t('leftPanel.productCategoryDist') }}</span>
       <div class="title-dot"></div>
     </div>
     <div ref="chartRef" class="chart-container"></div>
@@ -10,9 +10,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import * as echarts from 'echarts'
 import { useBusinessStore } from '@/stores/business'
 
+const { t } = useI18n()
 const store = useBusinessStore()
 const chartRef = ref<HTMLDivElement>()
 let chartInstance: echarts.ECharts | null = null
@@ -131,10 +133,11 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .product-display {
-  height: 320px;
-  
+  height: 280px;
+  flex-shrink: 0;
+
   .chart-container {
-    height: calc(100% - 56px);
+    height: calc(100% - 52px);
   }
 }
 </style>
