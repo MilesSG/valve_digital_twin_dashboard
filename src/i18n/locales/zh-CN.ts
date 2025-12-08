@@ -1,6 +1,6 @@
 export default {
   common: {
-    company: '法尔阀业',
+    company: '南阳XX公司',
     system: '数据可视化中心',
     subtitle: 'Intelligent Valve Control System',
     systemSubtitle: 'Valve Data Visualization Center',

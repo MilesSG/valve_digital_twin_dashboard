@@ -76,31 +76,28 @@ function initChart() {
     tooltip: {
       trigger: 'axis',
       axisPointer: {
-        type: 'cross'
+        type: 'cross',
+        crossStyle: {
+          color: '#94A3B8',
+          type: 'dashed',
+          width: 1
+        }
       },
-      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+      backgroundColor: 'rgba(255, 255, 255, 0.98)',
       borderColor: '#E2E8F0',
       borderWidth: 1,
       textStyle: {
-        color: '#1E293B'
-      }
-    },
-    legend: {
-      data: ['合格率', '预警线'],
-      top: 10,
-      right: 20,
-      textStyle: {
-        color: '#64748B',
-        fontSize: 12
+        color: '#1E293B',
+        fontSize: 13
       },
-      itemWidth: 16,
-      itemHeight: 8
+      padding: [10, 14],
+      extraCssText: 'box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); border-radius: 8px;'
     },
     grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      top: '8%',
+      left: '2%',
+      right: '3%',
+      bottom: '2%',
+      top: '5%',
       containLabel: true
     },
     xAxis: {
@@ -109,29 +106,39 @@ function initChart() {
       boundaryGap: false,
       axisLabel: {
         color: '#94A3B8',
-        fontSize: 11,
-        interval: 2
+        fontSize: 12,
+        interval: 2,
+        fontWeight: 500
       },
       axisLine: {
         lineStyle: {
-          color: '#E2E8F0'
+          color: '#E2E8F0',
+          width: 1.5
         }
       }
     },
     yAxis: {
       type: 'value',
       name: '百分比(%)',
+      nameTextStyle: {
+        color: '#64748B',
+        fontSize: 12,
+        fontWeight: 600,
+        padding: [0, 0, 0, 0]
+      },
       min: 85,
       max: 100,
       axisLabel: {
         color: '#64748B',
-        fontSize: 11,
+        fontSize: 12,
+        fontWeight: 500,
         formatter: '{value}%'
       },
       splitLine: {
         lineStyle: {
           color: '#E2E8F0',
-          type: 'dashed'
+          type: 'dashed',
+          width: 1
         }
       }
     },
@@ -142,13 +149,15 @@ function initChart() {
         data: qualifiedData.value,
         smooth: true,
         symbol: 'circle',
-        symbolSize: 5,
+        symbolSize: 6,
         itemStyle: {
-          color: '#00E676'
+          color: '#00E676',
+          borderWidth: 2,
+          borderColor: '#FFF'
         },
         lineStyle: {
-          width: 2.5,
-          shadowBlur: 8,
+          width: 3,
+          shadowBlur: 10,
           shadowColor: 'rgba(0, 230, 118, 0.4)'
         },
         areaStyle: {
@@ -159,10 +168,14 @@ function initChart() {
             x2: 0,
             y2: 1,
             colorStops: [
-              { offset: 0, color: 'rgba(0, 230, 118, 0.15)' },
-              { offset: 1, color: 'rgba(0, 230, 118, 0.02)' }
+              { offset: 0, color: 'rgba(0, 230, 118, 0.18)' },
+              { offset: 1, color: 'rgba(0, 230, 118, 0.03)' }
             ]
           }
+        },
+        emphasis: {
+          scale: true,
+          scaleSize: 10
         }
       },
       {
@@ -172,8 +185,9 @@ function initChart() {
         symbol: 'none',
         lineStyle: {
           color: '#FFA726',
-          width: 2,
-          type: 'dashed'
+          width: 2.5,
+          type: [6, 4],
+          cap: 'round'
         },
         markLine: {
           silent: true,
@@ -181,14 +195,19 @@ function initChart() {
           label: {
             show: true,
             position: 'end',
-            formatter: '95% 预警线',
+            formatter: '95%',
             color: '#FFA726',
-            fontSize: 11
+            fontSize: 12,
+            fontWeight: 700,
+            backgroundColor: 'rgba(255, 167, 38, 0.1)',
+            padding: [4, 8],
+            borderRadius: 4
           },
           lineStyle: {
             color: '#FFA726',
-            type: 'dashed',
-            width: 2
+            type: [6, 4],
+            width: 2.5,
+            cap: 'round'
           },
           data: [{ yAxis: 95 }]
         }
@@ -229,41 +248,43 @@ onMounted(() => {
     align-items: center;
     gap: 12px;
     position: relative;
+    margin-bottom: 8px;
 
     .quality-summary {
       margin-left: auto;
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 5px 12px;
+      padding: 6px 14px;
       background: rgba(0, 0, 0, 0.02);
       border-radius: 8px;
 
       .summary-item {
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
 
         .summary-label {
-          font-size: 10px;
+          font-size: 12px;
           color: #64748B;
           font-weight: 500;
         }
 
         .summary-value {
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 800;
           font-feature-settings: 'tnum';
         }
 
         .summary-text {
-          font-size: 10px;
+          font-size: 11px;
           font-weight: 500;
           color: #64748B;
         }
 
         &.excellent .summary-value {
           color: #00E676;
+          text-shadow: 0 0 6px rgba(0, 230, 118, 0.2);
         }
 
         &.good .summary-value {
@@ -277,14 +298,14 @@ onMounted(() => {
 
       .summary-divider {
         width: 1px;
-        height: 14px;
+        height: 16px;
         background: rgba(0, 0, 0, 0.08);
       }
     }
   }
 
   .chart-container {
-    height: calc(100% - 52px);
+    height: calc(100% - 48px);
   }
 }
 </style>

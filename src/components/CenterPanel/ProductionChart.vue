@@ -21,7 +21,6 @@ const { t } = useI18n()
 const chartRef = ref<HTMLDivElement>()
 let chartInstance: echarts.ECharts | null = null
 
-// 生产线数据（实际产量、目标产量、效率）
 const productionData = ref([
   { name: '调节阀生产线', actual: 156, target: 150, efficiency: 104 },
   { name: '截止阀生产线', actual: 136, target: 150, efficiency: 91 },
@@ -88,10 +87,10 @@ function initChart() {
       }
     },
     grid: {
-      left: '5%',
-      right: '15%',
-      bottom: '3%',
-      top: '10%',
+      left: '3%',
+      right: '12%',
+      bottom: '2%',
+      top: '5%',
       containLabel: true
     },
     xAxis: {
@@ -99,7 +98,7 @@ function initChart() {
       max: 180,
       axisLabel: {
         color: '#64748B',
-        fontSize: 11,
+        fontSize: 12,
         formatter: '{value}'
       },
       splitLine: {
@@ -114,25 +113,10 @@ function initChart() {
       data: data.map(d => d.name),
       axisLabel: {
         color: '#1E293B',
-        fontSize: 12,
-        fontWeight: 500,
-        formatter: (value: string) => {
-          const item = data.find(d => d.name === value)
-          return `{name|${value}}\n{efficiency|${item?.efficiency}%}`
-        },
-        rich: {
-          name: {
-            fontSize: 13,
-            fontWeight: 600,
-            color: '#1E293B'
-          },
-          efficiency: {
-            fontSize: 11,
-            fontWeight: 700,
-            color: '#64748B',
-            padding: [4, 0, 0, 0]
-          }
-        }
+        fontSize: 13,
+        fontWeight: 600,
+        lineHeight: 20,
+        margin: 20
       },
       axisLine: {
         show: false
@@ -147,12 +131,14 @@ function initChart() {
         type: 'bar',
         data: data.map(d => d.target),
         barWidth: 24,
+        barCategoryGap: '40%',
         itemStyle: {
-          color: 'rgba(0, 0, 0, 0.05)',
-          borderRadius: [0, 6, 6, 0]
+          color: 'rgba(0, 0, 0, 0.04)',
+          borderRadius: [0, 12, 12, 0]
         },
         barGap: '-100%',
-        z: 1
+        z: 1,
+        silent: true
       },
       {
         name: '实际产量',
@@ -171,9 +157,9 @@ function initChart() {
                 { offset: 1, color: getEfficiencyColor(d.efficiency).end }
               ]
             },
-            borderRadius: [0, 6, 6, 0],
-            shadowBlur: 8,
-            shadowColor: getEfficiencyColor(d.efficiency).start + '40'
+            borderRadius: [0, 12, 12, 0],
+            shadowBlur: 10,
+            shadowColor: getEfficiencyColor(d.efficiency).start + '30'
           }
         })),
         barWidth: 24,
@@ -182,8 +168,19 @@ function initChart() {
           position: 'right',
           color: '#1E293B',
           fontWeight: 700,
-          fontSize: 13,
-          formatter: '{c}'
+          fontSize: 14,
+          formatter: (params: any) => {
+            const item = data[params.dataIndex]
+            return `${params.value}  {efficiency|${item.efficiency}%}`
+          },
+          rich: {
+            efficiency: {
+              fontSize: 13,
+              fontWeight: 700,
+              color: '#64748B',
+              padding: [0, 0, 0, 6]
+            }
+          }
         },
         z: 2,
         animationDuration: 2000,
@@ -210,13 +207,7 @@ function updateChart() {
   const data = productionData.value
   chartInstance?.setOption({
     yAxis: {
-      data: data.map(d => d.name),
-      axisLabel: {
-        formatter: (value: string) => {
-          const item = data.find(d => d.name === value)
-          return `{name|${value}}\n{efficiency|${item?.efficiency}%}`
-        }
-      }
+      data: data.map(d => d.name)
     },
     series: [
       {
@@ -236,7 +227,9 @@ function updateChart() {
                 { offset: 0, color: getEfficiencyColor(d.efficiency).start },
                 { offset: 1, color: getEfficiencyColor(d.efficiency).end }
               ]
-            }
+            },
+            borderRadius: [0, 14, 14, 0],
+            shadowColor: getEfficiencyColor(d.efficiency).start + '30'
           }
         }))
       }
@@ -254,7 +247,7 @@ onMounted(() => {
 @import "@/styles/variables.scss";
 
 .production-chart {
-  height: 300px;
+  height: 280px;
   flex-shrink: 0;
 
   .section-title-neon {
@@ -262,29 +255,31 @@ onMounted(() => {
     align-items: center;
     gap: 12px;
     position: relative;
+    margin-bottom: 8px;
 
     .efficiency-summary {
       margin-left: auto;
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 5px 12px;
+      padding: 6px 14px;
       background: rgba(0, 0, 0, 0.02);
       border-radius: 8px;
 
       .summary-label {
-        font-size: 11px;
+        font-size: 12px;
         color: #64748B;
         font-weight: 500;
       }
 
       .summary-value {
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 800;
         font-feature-settings: 'tnum';
 
         &.excellent {
           color: #00E676;
+          text-shadow: 0 0 6px rgba(0, 230, 118, 0.2);
         }
 
         &.good {
@@ -299,7 +294,7 @@ onMounted(() => {
   }
 
   .chart-container {
-    height: calc(100% - 52px);
+    height: calc(100% - 48px);
   }
 }
 </style>
