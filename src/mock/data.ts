@@ -111,3 +111,93 @@ export function generateDashboardStats() {
     customerGrowth: Mock.Random.float(3, 20, 1, 1)
   }
 }
+
+// 生成设备数据
+export function generateDevices(count = 20) {
+  const types = ['调节阀', '截止阀', '球阀', '闸阀', '蝶阀', '安全阀']
+  const zones = ['生产区A', '生产区B', '生产区C', '仓储区', '包装区']
+  const statuses: Array<'normal' | 'warning' | 'error' | 'offline'> = ['normal', 'warning', 'error', 'offline']
+
+  return Array.from({ length: count }, (_, i) => ({
+    id: `DEV${String(i + 1).padStart(4, '0')}`,
+    name: `${types[i % types.length]}-${String(i + 1).padStart(2, '0')}`,
+    type: types[i % types.length],
+    zone: zones[i % zones.length],
+    status: statuses[i % 4 === 0 ? 3 : i % 4 === 1 ? 2 : i % 4 === 2 ? 1 : 0],
+    temperature: Mock.Random.float(20, 80, 1, 1),
+    pressure: Mock.Random.float(0.1, 2.5, 1, 2),
+    flowRate: Mock.Random.float(10, 100, 1, 1),
+    power: Mock.Random.float(1, 15, 1, 1),
+    efficiency: Mock.Random.float(75, 98, 1, 1),
+    runningTime: Mock.Random.integer(1000, 50000),
+    lastMaintenance: new Date(Date.now() - Math.random() * 30 * 24 * 3600000).toISOString().split('T')[0],
+    nextMaintenance: new Date(Date.now() + Math.random() * 60 * 24 * 3600000).toISOString().split('T')[0]
+  }))
+}
+
+// 生成告警数据
+export function generateAlarms(count = 20) {
+  const levels: Array<'info' | 'warning' | 'error' | 'critical'> = ['info', 'warning', 'error', 'critical']
+  const statuses: Array<'active' | 'acknowledged' | 'resolved'> = ['active', 'acknowledged', 'resolved']
+  const messages = [
+    '温度超过阈值',
+    '压力异常波动',
+    '流量降低',
+    '设备效率下降',
+    '维护周期临近',
+    '设备离线',
+    '传感器故障',
+    '通信异常'
+  ]
+
+  return Array.from({ length: count }, (_, i) => ({
+    id: `ALM${String(i + 1).padStart(6, '0')}`,
+    deviceId: `DEV${String(Mock.Random.integer(1, 20)).padStart(4, '0')}`,
+    deviceName: `设备-${Mock.Random.integer(1, 20)}`,
+    level: levels[i % levels.length],
+    message: messages[i % messages.length],
+    timestamp: new Date(Date.now() - Math.random() * 7 * 24 * 3600000),
+    status: statuses[i % statuses.length],
+    handler: i % 3 === 0 ? Mock.Random.cname() : undefined
+  }))
+}
+
+// 生成趋势数据
+export function generateTrendData() {
+  const hours = 24
+  const now = new Date()
+
+  return {
+    timestamps: Array.from({ length: hours }, (_, i) => {
+      const date = new Date(now.getTime() - (hours - 1 - i) * 3600000)
+      return `${String(date.getHours()).padStart(2, '0')}:00`
+    }),
+    temperature: Array.from({ length: hours }, () => Mock.Random.float(40, 70, 1, 1)),
+    pressure: Array.from({ length: hours }, () => Mock.Random.float(0.8, 1.8, 1, 2)),
+    flowRate: Array.from({ length: hours }, () => Mock.Random.float(40, 80, 1, 1)),
+    power: Array.from({ length: hours }, () => Mock.Random.float(5, 12, 1, 1)),
+    efficiency: Array.from({ length: hours }, () => Mock.Random.float(80, 95, 1, 1))
+  }
+}
+
+// 生成监控统计数据
+export function generateStats() {
+  const totalDevices = 20
+  const normalDevices = Mock.Random.integer(12, 16)
+  const warningDevices = Mock.Random.integer(2, 4)
+  const errorDevices = Mock.Random.integer(0, 2)
+  const offlineDevices = totalDevices - normalDevices - warningDevices - errorDevices
+
+  return {
+    totalDevices,
+    normalDevices,
+    warningDevices,
+    errorDevices,
+    offlineDevices,
+    activeAlarms: Mock.Random.integer(3, 10),
+    totalAlarms: Mock.Random.integer(50, 200),
+    avgEfficiency: Mock.Random.float(85, 92, 1, 1),
+    totalPower: Mock.Random.float(100, 250, 1, 1),
+    totalFlowRate: Mock.Random.float(800, 1500, 1, 1)
+  }
+}

@@ -134,9 +134,14 @@ export const useBusinessStore = defineStore('business', () => {
     // 统计数据
     stats.value = {
       totalOrders: data.orders?.total || 0,
+      todayOrders: 0,
       totalSales: data.orders?.trend?.reduce((sum: number, item: any) => sum + (item.amount || 0), 0) || 0,
-      totalProduction: data.production?.reduce((sum: number, item: any) => sum + (item.output || 0), 0) || 0,
+      monthSales: 0,
       totalCustomers: data.customers?.length || 0,
+      newCustomers: 0,
+      productTypes: 8,
+      totalProducts: 50,
+      totalProduction: data.production?.reduce((sum: number, item: any) => sum + (item.output || 0), 0) || 0,
       orderGrowth: 0,
       salesGrowth: 0,
       productionGrowth: 0,
@@ -144,12 +149,50 @@ export const useBusinessStore = defineStore('business', () => {
     }
     
     // 区域销售（暂时使用模拟数据）
+    const totalSales = stats.value?.totalSales || 0
+    const totalOrders = stats.value?.totalOrders || 0
+
     regionSales.value = [
-      { region: '华东', sales: stats.value.totalSales * 0.35, orders: stats.value.totalOrders * 0.35 },
-      { region: '华北', sales: stats.value.totalSales * 0.25, orders: stats.value.totalOrders * 0.25 },
-      { region: '华南', sales: stats.value.totalSales * 0.20, orders: stats.value.totalOrders * 0.20 },
-      { region: '华中', sales: stats.value.totalSales * 0.12, orders: stats.value.totalOrders * 0.12 },
-      { region: '西南', sales: stats.value.totalSales * 0.08, orders: stats.value.totalOrders * 0.08 }
+      {
+        region: '华东',
+        province: '上海',
+        sales: totalSales * 0.35,
+        orders: totalOrders * 0.35,
+        growth: 15.5,
+        coordinates: [121.47, 31.23] as [number, number]
+      },
+      {
+        region: '华北',
+        province: '北京',
+        sales: totalSales * 0.25,
+        orders: totalOrders * 0.25,
+        growth: 12.3,
+        coordinates: [116.40, 39.90] as [number, number]
+      },
+      {
+        region: '华南',
+        province: '广东',
+        sales: totalSales * 0.20,
+        orders: totalOrders * 0.20,
+        growth: 18.7,
+        coordinates: [113.26, 23.13] as [number, number]
+      },
+      {
+        region: '华中',
+        province: '湖北',
+        sales: totalSales * 0.12,
+        orders: totalOrders * 0.12,
+        growth: 10.2,
+        coordinates: [114.30, 30.60] as [number, number]
+      },
+      {
+        region: '西南',
+        province: '四川',
+        sales: totalSales * 0.08,
+        orders: totalOrders * 0.08,
+        growth: 8.9,
+        coordinates: [104.07, 30.65] as [number, number]
+      }
     ]
   }
   

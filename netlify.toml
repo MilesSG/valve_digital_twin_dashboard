@@ -1,0 +1,32 @@
+# Netlify 部署配置
+# 智能阀门控制系统 - 数据可视化中心
+
+[build]
+  # 构建命令
+  command = "npm run build"
+  # 发布目录
+  publish = "dist"
+
+# SPA 路由重定向（Vue Router history 模式需要）
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# 环境变量（可选，如需要可在 Netlify 后台配置）
+[build.environment]
+  NODE_VERSION = "18"
+
+# 响应头配置
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+
+# 静态资源缓存
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
