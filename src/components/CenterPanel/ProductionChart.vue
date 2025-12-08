@@ -189,7 +189,7 @@ function initChart() {
     ]
   })
 
-  // 自动更新动画
+  // 自动更新动画 - 降低刷新频率
   setInterval(() => {
     productionData.value = productionData.value.map(d => {
       const newActual = Math.max(50, Math.min(170, d.actual + Math.random() * 20 - 10))
@@ -200,7 +200,7 @@ function initChart() {
       }
     })
     updateChart()
-  }, 5000)
+  }, 10000)
 }
 
 function updateChart() {

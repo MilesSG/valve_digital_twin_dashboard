@@ -138,20 +138,22 @@ function polarToCartesian(cx: number, cy: number, r: number, angle: number) {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  height: 220px;
+  height: 300px;
 
   .gauges-grid {
+    flex: 1;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    padding: 4px 2px;
+    gap: 12px;
+    padding: 10px 6px;
 
       .gauge-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
-      padding: 6px 4px;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 8px;
       background: rgba(255, 255, 255, 0.5);
       border-radius: 10px;
       border: 1px solid rgba(0, 0, 0, 0.04);

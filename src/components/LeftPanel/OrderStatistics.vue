@@ -162,11 +162,11 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .order-statistics {
-  flex-shrink: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 320px;
+  min-height: 0;
   
   .stats-grid {
     display: grid;

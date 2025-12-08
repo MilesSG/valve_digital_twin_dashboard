@@ -32,8 +32,9 @@ const chartRef = ref<HTMLDivElement>()
 let chartInstance: echarts.ECharts | null = null
 
 const hours = Array.from({ length: 24 }, (_, i) => `${i}:00`)
-let qualifiedData = ref(Array.from({ length: 24 }, () => 92 + Math.random() * 6))
-let defectData = ref(Array.from({ length: 24 }, () => 3 + Math.random() * 5))
+// 提高合格率范围，让数据更好看 (95%-98.5%)
+let qualifiedData = ref(Array.from({ length: 24 }, () => 95 + Math.random() * 3.5))
+let defectData = ref(Array.from({ length: 24 }, () => 1 + Math.random() * 2))
 
 // 计算当前合格率（最新一小时）
 const currentQualityRate = computed(() => {
@@ -215,10 +216,10 @@ function initChart() {
     ]
   })
 
-  // 实时更新数据
+  // 实时更新数据 - 降低刷新频率，缩小波动范围，保持高合格率
   setInterval(() => {
     qualifiedData.value = qualifiedData.value.map(v =>
-      Math.max(88, Math.min(98, v + (Math.random() - 0.5) * 3))
+      Math.max(94, Math.min(99, v + (Math.random() - 0.5) * 1.5))
     )
 
     chartInstance?.setOption({
@@ -227,7 +228,7 @@ function initChart() {
         { data: Array(24).fill(95) }
       ]
     })
-  }, 3000)
+  }, 8000)
 }
 
 onMounted(() => {
