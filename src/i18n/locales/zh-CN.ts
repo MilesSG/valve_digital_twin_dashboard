@@ -13,7 +13,7 @@ export default {
     save: '保存',
     export: '导出',
     import: '导入',
-    language: '语言',
+    language: '语言 ', 
   },
 
   weather: {

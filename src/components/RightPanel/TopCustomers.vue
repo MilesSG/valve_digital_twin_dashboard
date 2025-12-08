@@ -113,6 +113,7 @@ function resumeScroll() {
 
   .customer-list-wrapper {
     flex: 1;
+    max-height: 540px; // 限制最大高度
     overflow: hidden;
     position: relative;
     mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);

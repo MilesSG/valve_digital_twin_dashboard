@@ -68,9 +68,9 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 // 仪表盘尺寸配置（苹果风格：简洁、适中）
-const gaugeSize = 80
-const radius = 28
-const strokeWidth = 7 // 加粗线条，提高可见性
+const gaugeSize = 72
+const radius = 26
+const strokeWidth = 6 // 加粗线条，提高可见性
 
 // 库存数据
 const inventoryData = ref([
@@ -139,19 +139,20 @@ function polarToCartesian(cx: number, cy: number, r: number, angle: number) {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  max-height: 260px;
 
   .gauges-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 8px;
     padding: 6px 2px;
 
-    .gauge-item {
+      .gauge-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
-      padding: 8px 6px;
+      gap: 4px;
+      padding: 6px 4px;
       background: rgba(255, 255, 255, 0.5);
       border-radius: 10px;
       border: 1px solid rgba(0, 0, 0, 0.04);

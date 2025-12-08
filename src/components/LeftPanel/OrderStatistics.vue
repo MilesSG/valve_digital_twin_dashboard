@@ -6,8 +6,8 @@
     </div>
     <div class="stats-grid">
       <div class="stat-item" v-for="item in orderStats" :key="item.label" :class="item.class">
-        <div class="stat-icon-neon" :style="{ borderColor: item.neonColor, boxShadow: `0 0 12px ${item.neonColor}` }">
-          <el-icon :size="22" :color="item.neonColor">
+        <div class="stat-icon-neon" :style="{ borderColor: item.neonColor, boxShadow: `0 0 10px ${item.neonColor}40` }">
+          <el-icon :size="18" :color="item.neonColor">
             <component :is="item.icon" />
           </el-icon>
         </div>
@@ -165,18 +165,19 @@ onMounted(() => {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  max-height: 320px;
   
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 8px;
 
     .stat-item {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      padding: 10px;
+      gap: 6px;
+      padding: 8px;
       background: rgba(255, 255, 255, 0.7);
       border-radius: 10px;
       border: 1px solid $card-border;
@@ -210,8 +211,8 @@ onMounted(() => {
       }
       
       .stat-icon-neon {
-        width: 38px;
-        height: 38px;
+        width: 32px;
+        height: 32px;
         border-radius: 8px;
         display: flex;
         align-items: center;
@@ -219,6 +220,10 @@ onMounted(() => {
         background: rgba(255, 255, 255, 0.95);
         border: 1px solid;
         transition: all 0.3s ease;
+        
+        :deep(.el-icon) {
+          font-size: 18px;
+        }
       }
 
       .stat-info {
@@ -227,13 +232,13 @@ onMounted(() => {
         align-items: baseline;
 
         .stat-value {
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 700;
           font-variant-numeric: tabular-nums;
         }
 
         .stat-label {
-          font-size: 11px;
+          font-size: 10px;
           color: $text-secondary;
           font-weight: 600;
         }
@@ -259,7 +264,7 @@ onMounted(() => {
   }
 
   .order-trend-mini {
-    padding: 10px;
+    padding: 8px;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 10px;
     border: 1px solid $card-border;
@@ -268,28 +273,28 @@ onMounted(() => {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
 
       .trend-title {
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 600;
         color: $text-secondary;
       }
 
       .trend-total {
-        font-size: 11px;
+        font-size: 10px;
         color: $text-tertiary;
 
         strong {
           color: $neon-green;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 700;
         }
       }
     }
 
     .trend-chart {
-      height: 70px;
+      height: 60px;
     }
   }
 }

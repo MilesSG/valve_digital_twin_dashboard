@@ -133,7 +133,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .product-display {
-  height: 280px;
+  height: 240px;
   flex-shrink: 0;
 
   .chart-container {
