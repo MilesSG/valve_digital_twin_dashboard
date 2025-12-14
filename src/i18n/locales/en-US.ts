@@ -50,6 +50,20 @@ export default {
     avgEfficiency: 'Avg Efficiency',
     qualityRate: 'Quality Rate',
     warningLine: 'Warning Line',
+    productionLines: 'Production Lines',
+    coreLinesMonitor: 'Core Lines Monitor',
+    totalOutput: 'Total Output',
+    avgQuality: 'Avg Quality',
+    productionProgress: 'Production Progress',
+    productionSchedule: 'Production Schedule',
+    currentOrderProgress: 'Current Order Progress',
+    nextHours: 'Next {hours} Hours',
+    yieldRate: 'Yield Rate',
+    oee: 'OEE',
+    cycleTime: 'Cycle Time',
+    units: 'pcs',
+    utilization: 'Utilization',
+    hourlyTrend: 'Hourly Trend',
   },
 
   leftPanel: {
@@ -182,5 +196,13 @@ export default {
     normal: 'Normal',
     low: 'Low',
     critical: 'Critical',
+  },
+
+  status: {
+    running: 'Running',
+    idle: 'Idle',
+    starved: 'Starved',
+    alarm: 'Alarm',
+    maintenance: 'Maintenance',
   },
 }

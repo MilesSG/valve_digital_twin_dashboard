@@ -38,7 +38,7 @@
         <div class="weather-box">
           <el-icon :size="20" color="#F59E0B"><Sunny /></el-icon>
           <div class="weather-info">
-            <span class="temp">28°C</span>
+            <span class="temp">7°C</span>
             <span class="status">{{ t('weather.sunny') }}</span>
           </div>
         </div>
@@ -222,20 +222,28 @@ onUnmounted(() => {
   .header-right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     position: relative;
     z-index: 100;
 
-    .language-toggle {
+    // 统一模块样式
+    .language-toggle,
+    .time-box,
+    .weather-box {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
+      padding: 12px 16px;
       background: rgba(255, 255, 255, 0.7);
       border-radius: 10px;
       border: 1px solid $card-border;
-      cursor: pointer;
+      min-height: 56px;
+      box-sizing: border-box;
       transition: all 0.3s ease;
+    }
+
+    .language-toggle {
+      gap: 8px;
+      cursor: pointer;
       user-select: none;
       min-width: 100px;
       justify-content: center;
@@ -266,18 +274,18 @@ onUnmounted(() => {
 
     .time-box {
       text-align: right;
-      padding: 10px 18px;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 10px;
-      border: 1px solid $card-border;
       position: relative;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      min-width: 140px;
 
       // 右上角森林绿点缀
       &::after {
         content: '';
         position: absolute;
-        top: 8px;
-        right: 8px;
+        top: 10px;
+        right: 10px;
         width: 4px;
         height: 4px;
         background: $forest-green;
@@ -301,13 +309,9 @@ onUnmounted(() => {
     }
 
     .weather-box {
-      display: flex;
-      align-items: center;
       gap: 10px;
-      padding: 10px 14px;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 10px;
-      border: 1px solid $card-border;
+      justify-content: center;
+      min-width: 100px;
 
       .weather-info {
         display: flex;

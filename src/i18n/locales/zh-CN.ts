@@ -1,6 +1,6 @@
 export default {
   common: {
-    company: '南阳XX公司',
+    company: 'XX公司',
     system: '数据可视化中心',
     subtitle: 'Intelligent Valve Control System',
     systemSubtitle: 'Valve Data Visualization Center',
@@ -50,6 +50,20 @@ export default {
     avgEfficiency: '平均效率',
     qualityRate: '合格率',
     warningLine: '预警线',
+    productionLines: '生产线监控',
+    coreLinesMonitor: '核心产线监控',
+    totalOutput: '总产量',
+    avgQuality: '平均质量',
+    productionProgress: '生产进度',
+    productionSchedule: '生产排程',
+    currentOrderProgress: '当前工单进度',
+    nextHours: '未来{hours}小时',
+    yieldRate: '良品率',
+    oee: 'OEE',
+    cycleTime: '节拍',
+    units: '件',
+    utilization: '设备利用率',
+    hourlyTrend: '小时趋势',
   },
 
   leftPanel: {
@@ -182,5 +196,13 @@ export default {
     normal: '正常',
     low: '偏低',
     critical: '不足',
+  },
+
+  status: {
+    running: '运行中',
+    idle: '待机',
+    starved: '待料',
+    alarm: '报警',
+    maintenance: '维护中',
   },
 }

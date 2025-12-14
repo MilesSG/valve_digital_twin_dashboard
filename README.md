@@ -147,7 +147,7 @@ $primary-color: #475569;           // 主文字色
 ### 修改公司信息
 ```vue
 <!-- src/components/HeaderBar/index.vue -->
-<h1 class="company-name">南阳镇XX企业</h1>
+<h1 class="company-name">XX企业</h1>
 <div class="title-main">数据可视化中心</div>
 ```
 

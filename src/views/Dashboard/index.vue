@@ -35,7 +35,7 @@
         <!-- 中间 - 多个数据可视化图表 -->
         <div class="center-section">
           <ProductionChart />
-          <QualityChart />
+          <CoreLinesMonitor />
         </div>
 
         <!-- 右侧 -->
@@ -56,7 +56,7 @@ import ProductDisplay from '@/components/LeftPanel/ProductDisplay.vue'
 import InventoryGauges from '@/components/LeftPanel/InventoryGauges.vue'
 import OrderStatistics from '@/components/LeftPanel/OrderStatistics.vue'
 import ProductionChart from '@/components/CenterPanel/ProductionChart.vue'
-import QualityChart from '@/components/CenterPanel/QualityChart.vue'
+import CoreLinesMonitor from '@/components/CenterPanel/CoreLinesMonitor.vue'
 import SalesTrend from '@/components/RightPanel/SalesTrend.vue'
 import TopCustomers from '@/components/RightPanel/TopCustomers.vue'
 import AIChatAssistant from '@/components/AI/AIChatAssistant.vue'

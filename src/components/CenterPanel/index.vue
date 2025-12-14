@@ -1,7 +1,7 @@
 <template>
-  <Factory3DView />
+  <ProductionLines />
 </template>
 
 <script setup lang="ts">
-import Factory3DView from './Factory3DView.vue'
+import ProductionLines from './ProductionLines.vue'
 </script>

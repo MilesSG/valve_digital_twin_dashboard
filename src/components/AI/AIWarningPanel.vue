@@ -282,16 +282,20 @@ onMounted(() => {
   .warning-trigger-btn {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
-    padding: 8px 16px;
+    padding: 12px 16px;
     background: rgba(255, 167, 38, 0.1);
     border: 1px solid rgba(255, 167, 38, 0.3);
-    border-radius: 8px;
+    border-radius: 10px;
     color: #FFA726;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
+    min-height: 56px;
+    box-sizing: border-box;
+    min-width: 100px;
 
     &:hover {
       background: rgba(255, 167, 38, 0.15);
