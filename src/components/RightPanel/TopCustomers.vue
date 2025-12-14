@@ -123,7 +123,7 @@ function resumeScroll() {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      animation: scroll-up 60s linear infinite;
+      animation: scroll-up 60s li请你详细的阅读我的项目代码，然后帮我整理几句话，用于介绍这个项目，谦虚一些，因为我想来把我的项目卖给企业，之后用于企业的看板near infinite;
 
       &:hover {
         animation-play-state: paused;
