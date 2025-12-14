@@ -1,6 +1,7 @@
 <template>
   <div class="product-display card-neon">
     <div class="section-title-neon">
+      <PanelIcon type="product" />
       <span>{{ t('leftPanel.productCategoryDist') }}</span>
       <div class="title-dot"></div>
     </div>
@@ -13,22 +14,23 @@ import { ref, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import * as echarts from 'echarts'
 import { useBusinessStore } from '@/stores/business'
+import PanelIcon from '@/components/common/PanelIcon.vue'
 
 const { t } = useI18n()
 const store = useBusinessStore()
 const chartRef = ref<HTMLDivElement>()
 let chartInstance: echarts.ECharts | null = null
 
-// 浅色主题配色方案 - 协调优雅，符合设计系统
+// 森林绿和工业蓝配色方案 - 现代、清新、专业
 const colorPalette = [
-  '#00E676',  // 荧光绿（主色，第一重点）
-  '#64748B',  // 深灰蓝（稳重）
-  '#FFA726',  // 浅橙（警告/维护状态）
-  '#94A3B8',  // 中灰蓝（中性）
-  '#00C9A7',  // 青绿（和谐）
-  '#8B9DC3',  // 紫灰蓝（优雅）
-  '#B0BEC5',  // 浅灰蓝（柔和）
-  '#A7C4BC'   // 灰绿（统一）
+  '#2E7D32',  // 森林绿（主色）
+  '#1976D2',  // 工业蓝（次要色）
+  '#4CAF50',  // 浅森林绿
+  '#42A5F5',  // 浅工业蓝
+  '#388E3C',  // 中绿
+  '#2196F3',  // 中蓝
+  '#66BB6A',  // 明绿
+  '#64B5F6'   // 明蓝
 ]
 
 function initChart() {
@@ -58,7 +60,7 @@ function updateChart() {
           ]
         },
         shadowBlur: index === 0 ? 10 : 4,
-        shadowColor: index === 0 ? 'rgba(0, 230, 118, 0.3)' : 'rgba(0, 0, 0, 0.08)',
+        shadowColor: index === 0 ? 'rgba(46, 125, 50, 0.3)' : 'rgba(0, 0, 0, 0.08)',
         borderWidth: 1.5,
         borderColor: 'rgba(255, 255, 255, 0.8)'
       }

@@ -1,6 +1,7 @@
 <template>
   <div class="quality-chart card-neon">
     <div class="section-title-neon">
+      <PanelIcon type="quality" />
       <span>{{ t('chart.quality') }}</span>
       <div class="title-dot"></div>
       <div class="quality-summary">
@@ -26,6 +27,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import * as echarts from 'echarts'
+import PanelIcon from '@/components/common/PanelIcon.vue'
 
 const { t } = useI18n()
 const chartRef = ref<HTMLDivElement>()
@@ -49,12 +51,12 @@ const qualityStatus = computed(() => {
   return 'warning'
 })
 
-// 质量状态颜色
+// 质量状态颜色 - 森林绿和工业蓝配色
 const qualityStatusColor = computed(() => {
   const status = qualityStatus.value
-  if (status === 'excellent') return '#00E676'
-  if (status === 'good') return '#3B82F6'
-  return '#FFA726'
+  if (status === 'excellent') return '#2E7D32'
+  if (status === 'good') return '#1976D2'
+  return '#F57C00'
 })
 
 // 质量状态文本
@@ -152,14 +154,14 @@ function initChart() {
         symbol: 'circle',
         symbolSize: 6,
         itemStyle: {
-          color: '#00E676',
+          color: '#2E7D32',
           borderWidth: 2,
           borderColor: '#FFF'
         },
         lineStyle: {
           width: 3,
           shadowBlur: 10,
-          shadowColor: 'rgba(0, 230, 118, 0.4)'
+          shadowColor: 'rgba(46, 125, 50, 0.3)'
         },
         areaStyle: {
           color: {
@@ -169,8 +171,8 @@ function initChart() {
             x2: 0,
             y2: 1,
             colorStops: [
-              { offset: 0, color: 'rgba(0, 230, 118, 0.18)' },
-              { offset: 1, color: 'rgba(0, 230, 118, 0.03)' }
+              { offset: 0, color: 'rgba(46, 125, 50, 0.15)' },
+              { offset: 1, color: 'rgba(46, 125, 50, 0.02)' }
             ]
           }
         },
@@ -185,7 +187,7 @@ function initChart() {
         data: Array(24).fill(95),
         symbol: 'none',
         lineStyle: {
-          color: '#FFA726',
+          color: '#F57C00',
           width: 2.5,
           type: [6, 4],
           cap: 'round'
@@ -197,15 +199,15 @@ function initChart() {
             show: true,
             position: 'end',
             formatter: '95%',
-            color: '#FFA726',
+            color: '#F57C00',
             fontSize: 12,
             fontWeight: 700,
-            backgroundColor: 'rgba(255, 167, 38, 0.1)',
+            backgroundColor: 'rgba(245, 124, 0, 0.1)',
             padding: [4, 8],
             borderRadius: 4
           },
           lineStyle: {
-            color: '#FFA726',
+            color: '#F57C00',
             type: [6, 4],
             width: 2.5,
             cap: 'round'

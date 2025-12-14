@@ -113,7 +113,7 @@ onMounted(() => {
         &.orb-1 {
           width: 500px;
           height: 500px;
-          background: radial-gradient(circle, $neon-green, transparent);
+          background: radial-gradient(circle, $forest-green, transparent);
           top: -15%;
           right: -10%;
         }
@@ -121,7 +121,7 @@ onMounted(() => {
         &.orb-2 {
           width: 600px;
           height: 600px;
-          background: radial-gradient(circle, $primary-color, transparent);
+          background: radial-gradient(circle, $industrial-blue, transparent);
           bottom: -15%;
           left: -10%;
           animation-delay: -12s;
@@ -130,7 +130,7 @@ onMounted(() => {
         &.orb-3 {
           width: 450px;
           height: 450px;
-          background: radial-gradient(circle, $neon-green, transparent);
+          background: radial-gradient(circle, $forest-green-light, transparent);
           top: 35%;
           left: 35%;
           animation-delay: -20s;
@@ -141,10 +141,10 @@ onMounted(() => {
 
   .main-content {
     height: calc(100vh - 90px);
-    padding: 16px 28px 20px;
+    padding: 24px 36px 28px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
     position: relative;
     z-index: 1;
     overflow: hidden;
@@ -158,7 +158,7 @@ onMounted(() => {
     flex: 1;
     display: grid;
     grid-template-columns: 320px 1fr 340px;
-    gap: 16px;
+    gap: 24px;
     min-height: 0;
     overflow: hidden;
 
@@ -166,7 +166,7 @@ onMounted(() => {
     .right-section {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 20px;
       min-height: 0;
       overflow-y: auto;
       overflow-x: hidden;
@@ -188,7 +188,7 @@ onMounted(() => {
     .center-section {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 24px;
       min-width: 0;
       min-height: 0;
     }

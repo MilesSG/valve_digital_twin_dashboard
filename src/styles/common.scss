@@ -23,46 +23,66 @@ body {
   height: 100vh;
 }
 
-// 卡片通用样式 - 简约科技风
+// 卡片通用样式 - Glassmorphism + Claymorphism风格
 .card-neon {
-  background: rgba(255, 255, 255, 0.96);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
   border-radius: $border-radius-lg;
-  border: 1px solid $card-border;
-  box-shadow: $glow-card;
-  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: $shadow-soft-md, $shadow-inset;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   padding: $spacing-lg;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   overflow: hidden;
 
-  // 左上角荧光绿装饰线
+  // 顶部高光效果（Claymorphism）
   &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 3px;
-    height: 40px;
-    background: linear-gradient(180deg, $neon-green, transparent);
-    box-shadow: $glow-neon-subtle;
-    opacity: 0.8;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.8),
+      transparent
+    );
+    opacity: 0.6;
+  }
+
+  // 左侧强调色装饰线
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg,
+      $forest-green 0%,
+      $industrial-blue 50%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
   }
 
   &:hover {
-    border-color: rgba(0, 230, 118, 0.3);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    transform: translateY(-2px);
-    
-    &::before {
-      opacity: 1;
-      box-shadow: $glow-neon;
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: $shadow-soft-lg, $shadow-inset, $glow-forest-subtle;
+    transform: translateY(-4px) scale(1.01);
+
+    &::after {
+      opacity: 0.7;
     }
   }
 }
 
-// 标题样式 - 荧光绿点缀
+// 标题样式 - 森林绿和工业蓝渐变
 .section-title-neon {
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 600;
   color: $text-primary;
   margin-bottom: $spacing-lg;
@@ -73,19 +93,19 @@ body {
 
   &::before {
     content: '';
-    width: 3px;
-    height: 20px;
-    background: $neon-green;
-    border-radius: 2px;
-    box-shadow: $glow-neon-subtle;
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(180deg, $forest-green, $industrial-blue);
+    border-radius: 3px;
+    box-shadow: $glow-forest-subtle;
   }
 
   .title-dot {
-    width: 6px;
-    height: 6px;
-    background: $neon-green;
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, $forest-green, $industrial-blue);
     border-radius: 50%;
-    box-shadow: $glow-neon-subtle;
+    box-shadow: $glow-industrial-subtle;
     animation: pulse-dot 3s ease-in-out infinite;
     margin-left: auto;
   }
@@ -93,22 +113,22 @@ body {
 
 // 滚动条样式
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 3px;
-  
+  background: linear-gradient(180deg, $forest-green-light, $industrial-blue-light);
+  border-radius: 4px;
+
   &:hover {
-    background: $neon-green;
-    box-shadow: $glow-neon-subtle;
+    background: linear-gradient(180deg, $forest-green, $industrial-blue);
+    box-shadow: $glow-forest-subtle;
   }
 }
 
@@ -135,14 +155,14 @@ body {
 
 // Element Plus 覆盖
 .el-button--primary {
-  background: $neon-green;
+  background: linear-gradient(135deg, $forest-green, $industrial-blue);
   border: none;
-  box-shadow: $glow-neon-subtle;
-  
+  box-shadow: $glow-forest-subtle;
+
   &:hover {
-    background: $neon-green-light;
-    box-shadow: $glow-neon;
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, $forest-green-light, $industrial-blue-light);
+    box-shadow: $glow-forest, $glow-industrial;
+    transform: translateY(-2px) scale(1.02);
   }
 }
 

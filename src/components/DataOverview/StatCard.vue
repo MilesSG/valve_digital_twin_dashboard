@@ -20,7 +20,8 @@
       <div class="stat-label">{{ label }}</div>
       
       <div class="stat-display" ref="numberRef">
-        <span class="stat-value" :style="{ color: neonColor }">{{ displayValue }}</span>
+        <!-- CountUp 需要一个稳定的选择器 -->
+        <span class="stat-value value" :style="{ color: neonColor }">{{ displayValue }}</span>
         <span class="stat-unit" v-if="unit">{{ unit }}</span>
       </div>
       
@@ -107,15 +108,19 @@ watch(() => props.value, () => {
 @import '@/styles/variables.scss';
 
 .stat-card-premium {
-  height: 150px;
-  background: white;
-  border-radius: 20px;
-  padding: 24px 28px;
-  border: 1px solid rgba(226, 232, 240, 0.5);
+  // 固定高度在某些分辨率/缩放下会裁掉底部进度条：改为最小高度 + 自适应
+  min-height: 182px;
+  height: auto;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+  border-radius: 24px;
+  padding: 22px 28px 20px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
   
   // 背景装饰
   .card-decoration {
@@ -148,36 +153,40 @@ watch(() => props.value, () => {
     }
   }
   
-  // 增长徽章
+  // 增长徽章 - 加大字号
   .growth-badge {
     position: absolute;
-    top: 20px;
-    right: 24px;
+    top: 18px;
+    right: 20px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 600;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 800;
     font-feature-settings: 'tnum';
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(16px);
     z-index: 2;
     transition: all 0.3s ease;
-    
+
     &.positive {
-      background: rgba(0, 230, 118, 0.1);
-      color: #00C853;
-      border: 1px solid rgba(0, 230, 118, 0.2);
+      background: rgba(46, 125, 50, 0.15);
+      color: $forest-green-dark;
+      border: 1.5px solid rgba(46, 125, 50, 0.3);
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.15);
     }
-    
+
     &.negative {
-      background: rgba(239, 83, 80, 0.1);
-      color: #D32F2F;
-      border: 1px solid rgba(239, 83, 80, 0.2);
+      background: rgba(211, 47, 47, 0.15);
+      color: $danger-color;
+      border: 1.5px solid rgba(211, 47, 47, 0.3);
+      box-shadow: 0 4px 12px rgba(211, 47, 47, 0.15);
     }
-    
+
     svg {
+      width: 14px;
+      height: 14px;
       transition: transform 0.3s ease;
     }
   }
@@ -189,44 +198,57 @@ watch(() => props.value, () => {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 12px;
-    
+    // 从上往下排，避免数值过大把进度条挤出卡片导致裁切
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    gap: 10px;
+
     .stat-label {
-      font-size: 13px;
-      font-weight: 500;
-      color: #94A3B8;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      opacity: 0.9;
-      transition: color 0.3s;
+      font-size: 17px;
+      font-weight: 800;
+      color: #334155;
+      text-transform: none;
+      letter-spacing: 0.2px;
+      opacity: 1;
+      transition: all 0.3s;
+      margin-bottom: 2px;
+      // 避免标题被右上角增长徽章“压住”
+      padding-right: 96px;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    
+
     .stat-display {
       display: flex;
       align-items: baseline;
-      justify-content: center;
-      gap: 8px;
-      margin: 4px 0;
-      
+      justify-content: flex-start;
+      gap: 10px;
+      margin: 4px 0 0 0;
+      width: 100%;
+      min-width: 0;
+
       .stat-value {
-        font-size: 56px;
+        // 兼顾不同屏幕宽度：避免字号过大导致内容溢出/裁切
+        font-size: clamp(44px, 3.8vw, 64px);
         font-weight: 800;
         line-height: 1;
-        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
-        letter-spacing: -3px;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+        letter-spacing: -2px;
         font-feature-settings: 'tnum';
         -webkit-font-smoothing: antialiased;
+        color: $forest-green;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
       }
-      
+
       .stat-unit {
-        font-size: 16px;
-        font-weight: 600;
-        color: rgba(100, 116, 139, 0.6);
-        margin-bottom: 8px;
+        font-size: 18px;
+        font-weight: 800;
+        color: #475569;
+        margin-bottom: 10px;
         letter-spacing: 0.5px;
       }
     }
@@ -235,45 +257,49 @@ watch(() => props.value, () => {
       width: 100%;
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-top: 8px;
-      
+      gap: 16px;
+      // 固定在底部，保证一定可见
+      margin-top: auto;
+      padding-top: 10px;
+
       .progress-bar {
         flex: 1;
-        height: 6px;
-        background: rgba(0, 0, 0, 0.04);
-        border-radius: 3px;
+        height: 12px;
+        background: rgba(15, 23, 42, 0.12);
+        border-radius: 8px;
         overflow: hidden;
         position: relative;
-        
+        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.12);
+
         .progress-fill {
           height: 100%;
-          border-radius: 3px;
+          border-radius: 8px;
           position: relative;
-          transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-          box-shadow: 0 0 8px rgba(0, 230, 118, 0.3);
-          
+          transition: width 1.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+          background: linear-gradient(90deg, $forest-green 0%, $industrial-blue 100%);
+          box-shadow: 0 3px 10px rgba(46, 125, 50, 0.35), 0 0 16px rgba(25, 118, 210, 0.25);
+
           .progress-glow {
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, 
-              transparent, 
-              rgba(255, 255, 255, 0.5), 
+            background: linear-gradient(90deg,
+              transparent,
+              rgba(255, 255, 255, 0.7),
               transparent
             );
-            animation: progress-shine 2.5s ease-in-out infinite;
+            animation: progress-shine 3s ease-in-out infinite;
           }
         }
       }
-      
+
       .progress-label {
-        font-size: 11px;
-        font-weight: 700;
-        color: #64748B;
-        min-width: 36px;
+        font-size: 15px;
+        font-weight: 800;
+        color: #0F172A;
+        min-width: 44px;
         text-align: right;
         font-feature-settings: 'tnum';
       }
@@ -286,55 +312,60 @@ watch(() => props.value, () => {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    opacity: 0;
+    height: 4px;
+    opacity: 0.65;
     transition: opacity 0.4s ease;
   }
   
-  // Hover 效果
+  // Hover 效果 - 更强烈的视觉反馈
   &:hover {
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.1);
-    
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12),
+                inset 0 2px 8px rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.6);
+
     .card-decoration {
       .gradient-orb {
-        opacity: 0.12;
-        transform: scale(1.2);
+        opacity: 0.18;
+        transform: scale(1.4) rotate(60deg);
       }
-      
+
       .mesh-pattern {
         opacity: 1;
       }
     }
-    
+
     .growth-badge {
-      transform: scale(1.05);
-      
+      transform: scale(1.1);
+
       svg {
-        transform: translateY(-2px);
+        transform: translateY(-3px) scale(1.1);
       }
     }
-    
+
     .stat-display .stat-value {
-      transform: scale(1.02);
+      transform: scale(1.05);
+      color: $forest-green-dark;
+      text-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
     }
-    
+
     .bottom-accent {
       opacity: 1;
     }
   }
-  
+
   // 特殊强调样式
   &.neon-accent {
-    border-color: rgba(0, 230, 118, 0.15);
-    
+    border-color: rgba(46, 125, 50, 0.2);
+
     &:hover {
-      border-color: rgba(0, 230, 118, 0.3);
-      box-shadow: 0 12px 32px rgba(0, 230, 118, 0.12);
-      
+      border-color: rgba(46, 125, 50, 0.35);
+      box-shadow: 0 16px 48px rgba(46, 125, 50, 0.15),
+                  0 0 24px rgba(25, 118, 210, 0.1);
+
       .bottom-accent {
-        box-shadow: 0 0 20px rgba(0, 230, 118, 0.3);
+        box-shadow: 0 0 20px rgba(46, 125, 50, 0.4),
+                    0 0 12px rgba(25, 118, 210, 0.3);
       }
     }
   }
@@ -343,6 +374,25 @@ watch(() => props.value, () => {
   &:not(.has-growth) {
     .card-content {
       padding-top: 8px;
+    }
+  }
+}
+
+@media (max-width: 1400px) {
+  .stat-card-premium {
+    padding: 20px 22px 18px;
+
+    .card-content {
+      .stat-label {
+        font-size: 16px;
+        padding-right: 90px;
+      }
+
+      .stat-display {
+        .stat-unit {
+          font-size: 16px;
+        }
+      }
     }
   }
 }

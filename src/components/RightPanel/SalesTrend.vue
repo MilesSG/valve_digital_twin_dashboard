@@ -1,6 +1,7 @@
 <template>
   <div class="sales-trend card-neon">
     <div class="section-title-neon">
+      <PanelIcon type="sales" />
       <span>{{ t('rightPanel.salesTrend30Days') }}</span>
       <div class="title-dot"></div>
     </div>
@@ -13,6 +14,7 @@ import { ref, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import * as echarts from 'echarts'
 import { useBusinessStore } from '@/stores/business'
+import PanelIcon from '@/components/common/PanelIcon.vue'
 
 const { t } = useI18n()
 const store = useBusinessStore()

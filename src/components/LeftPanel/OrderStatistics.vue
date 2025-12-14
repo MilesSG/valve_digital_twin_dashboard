@@ -1,6 +1,7 @@
 <template>
   <div class="order-statistics card-neon">
     <div class="section-title-neon">
+      <PanelIcon type="order" />
       <span>{{ t('leftPanel.orderStatusDist') }}</span>
       <div class="title-dot"></div>
     </div>
@@ -40,6 +41,7 @@ import { useI18n } from 'vue-i18n'
 import { useBusinessStore } from '@/stores/business'
 import { Clock, Loading, CircleCheck, Close } from '@element-plus/icons-vue'
 import * as echarts from 'echarts'
+import PanelIcon from '@/components/common/PanelIcon.vue'
 
 const { t } = useI18n()
 const store = useBusinessStore()
@@ -62,7 +64,7 @@ const orderStats = computed(() => {
       label: t('order.statusCompleted'),
       value: store.ordersByStatus['completed'] || 0,
       icon: CircleCheck,
-      neonColor: '#00E676',
+      neonColor: '#2E7D32',
       class: 'neon-accent',
       progress: ((store.ordersByStatus['completed'] || 0) / total) * 100
     },
@@ -127,13 +129,13 @@ function initTrendChart() {
       symbol: 'circle',
       symbolSize: 5,
       itemStyle: {
-        color: '#00E676'
+        color: '#2E7D32'
       },
       lineStyle: {
         width: 2,
-        color: '#00E676',
+        color: '#2E7D32',
         shadowBlur: 8,
-        shadowColor: 'rgba(0, 230, 118, 0.4)'
+        shadowColor: 'rgba(46, 125, 50, 0.3)'
       },
       areaStyle: {
         color: {
@@ -143,8 +145,8 @@ function initTrendChart() {
           x2: 0,
           y2: 1,
           colorStops: [
-            { offset: 0, color: 'rgba(0, 230, 118, 0.2)' },
-            { offset: 1, color: 'rgba(0, 230, 118, 0.02)' }
+            { offset: 0, color: 'rgba(46, 125, 50, 0.2)' },
+            { offset: 1, color: 'rgba(46, 125, 50, 0.02)' }
           ]
         }
       }
@@ -198,8 +200,8 @@ onMounted(() => {
 
       &.neon-accent {
         &:hover::before {
-          background: $neon-green;
-          box-shadow: $glow-neon-subtle;
+          background: $forest-green;
+          box-shadow: $glow-forest-subtle;
         }
       }
       
@@ -286,7 +288,7 @@ onMounted(() => {
         color: $text-tertiary;
 
         strong {
-          color: $neon-green;
+          color: $forest-green;
           font-size: 12px;
           font-weight: 700;
         }

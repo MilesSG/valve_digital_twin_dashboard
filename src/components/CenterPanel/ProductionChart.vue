@@ -1,6 +1,7 @@
 <template>
   <div class="production-chart card-neon">
     <div class="section-title-neon">
+      <PanelIcon type="production" />
       <span>{{ t('chart.production') }} {{ t('chart.efficiency') }}</span>
       <div class="title-dot"></div>
       <div class="efficiency-summary">
@@ -16,6 +17,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import * as echarts from 'echarts'
+import PanelIcon from '@/components/common/PanelIcon.vue'
 
 const { t } = useI18n()
 const chartRef = ref<HTMLDivElement>()
@@ -43,12 +45,12 @@ const avgEfficiencyClass = computed(() => {
   return 'warning'
 })
 
-// 根据效率返回颜色
+// 根据效率返回颜色 - 森林绿和工业蓝配色
 function getEfficiencyColor(efficiency: number) {
-  if (efficiency >= 95) return { start: '#00E676', end: '#69F0AE' } // 绿色 - 优秀
-  if (efficiency >= 80) return { start: '#3B82F6', end: '#60A5FA' } // 蓝色 - 良好
-  if (efficiency >= 60) return { start: '#FFA726', end: '#FFB74D' } // 橙色 - 警告
-  return { start: '#EF5350', end: '#E57373' } // 红色 - 危险
+  if (efficiency >= 95) return { start: '#2E7D32', end: '#4CAF50' } // 森林绿 - 优秀
+  if (efficiency >= 80) return { start: '#1976D2', end: '#42A5F5' } // 工业蓝 - 良好
+  if (efficiency >= 60) return { start: '#F57C00', end: '#FFB74D' } // 橙色 - 警告
+  return { start: '#D32F2F', end: '#EF5350' } // 红色 - 危险
 }
 
 function initChart() {

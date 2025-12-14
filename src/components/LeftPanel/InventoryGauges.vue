@@ -1,6 +1,7 @@
 <template>
   <div class="inventory-gauges card-neon">
     <div class="section-title-neon">
+      <PanelIcon type="inventory" />
       <span>{{ t('leftPanel.inventoryStatus') }}</span>
       <div class="title-dot"></div>
     </div>
@@ -64,6 +65,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import PanelIcon from '@/components/common/PanelIcon.vue'
 
 const { t } = useI18n()
 
@@ -80,12 +82,12 @@ const inventoryData = ref([
   { name: t('product.globeValve'), percentage: 68, target: 100 }
 ])
 
-// 苹果风格配色方案
+// 森林绿和工业蓝配色方案
 function getGaugeColor(percentage: number): string {
-  if (percentage >= 75) return '#00E676' // 绿色 - 充足
-  if (percentage >= 50) return '#3B82F6' // 蓝色 - 正常
-  if (percentage >= 25) return '#FFA726' // 橙色 - 偏低
-  return '#EF5350' // 红色 - 不足
+  if (percentage >= 75) return '#2E7D32' // 森林绿 - 充足
+  if (percentage >= 50) return '#1976D2' // 工业蓝 - 正常
+  if (percentage >= 25) return '#F57C00' // 橙色 - 偏低
+  return '#D32F2F' // 红色 - 不足
 }
 
 // 状态等级

@@ -1,6 +1,7 @@
 <template>
   <div class="top-customers card-neon">
     <div class="section-title-neon">
+      <PanelIcon type="customer" />
       <span>{{ t('rightPanel.topCustomersRank') }}</span>
       <div class="title-dot"></div>
       <div class="scroll-indicator">
@@ -37,6 +38,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import PanelIcon from '@/components/common/PanelIcon.vue'
 
 const { t } = useI18n()
 const customerListRef = ref<HTMLElement>()

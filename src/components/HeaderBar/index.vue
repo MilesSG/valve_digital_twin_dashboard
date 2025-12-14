@@ -5,7 +5,7 @@
       <div class="header-left">
         <div class="logo-area">
           <div class="logo-icon neon-glow">
-            <el-icon :size="36" color="#00E676">
+            <el-icon :size="36" color="#2E7D32">
               <Setting />
             </el-icon>
           </div>
@@ -92,16 +92,16 @@ onUnmounted(() => {
   overflow: visible;
   z-index: 100;
 
-  // 顶部荧光绿扫描线
+  // 顶部森林绿扫描线
   .scan-line {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, $neon-green, transparent);
+    background: linear-gradient(90deg, transparent, $forest-green, transparent);
     animation: scan 5s linear infinite;
-    box-shadow: $glow-neon-subtle;
+    box-shadow: $glow-forest-subtle;
   }
 
   // 装饰性科技线条
@@ -113,7 +113,7 @@ onUnmounted(() => {
     transform: translateX(-50%);
     width: 200px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, $neon-green, transparent);
+    background: linear-gradient(90deg, transparent, $forest-green, transparent);
     opacity: 0.6;
   }
 
@@ -141,7 +141,7 @@ onUnmounted(() => {
         justify-content: center;
         background: rgba(255, 255, 255, 0.8);
         border-radius: 14px;
-        border: 1px solid rgba(0, 230, 118, 0.2);
+        border: 1px solid rgba(46, 125, 50, 0.2);
         position: relative;
 
         // 四角装饰线
@@ -151,7 +151,7 @@ onUnmounted(() => {
           position: absolute;
           width: 12px;
           height: 12px;
-          border: 1px solid $neon-green;
+          border: 1px solid $forest-green;
           opacity: 0.6;
         }
 
@@ -172,13 +172,13 @@ onUnmounted(() => {
         }
 
         &:hover {
-          border-color: $neon-green;
-          box-shadow: $glow-neon-subtle;
-          
+          border-color: $forest-green;
+          box-shadow: $glow-forest-subtle;
+
           &::before,
           &::after {
             opacity: 1;
-            box-shadow: $glow-neon-subtle;
+            box-shadow: $glow-forest-subtle;
           }
         }
       }
@@ -250,12 +250,12 @@ onUnmounted(() => {
 
       &:hover {
         background: rgba(255, 255, 255, 0.9);
-        border-color: $neon-green;
-        box-shadow: $glow-neon-subtle;
+        border-color: $forest-green;
+        box-shadow: $glow-forest-subtle;
         transform: translateY(-1px);
 
         .lang-text {
-          color: $neon-green;
+          color: $forest-green;
         }
       }
 
@@ -272,7 +272,7 @@ onUnmounted(() => {
       border: 1px solid $card-border;
       position: relative;
 
-      // 右上角荧光绿点缀
+      // 右上角森林绿点缀
       &::after {
         content: '';
         position: absolute;
@@ -280,9 +280,9 @@ onUnmounted(() => {
         right: 8px;
         width: 4px;
         height: 4px;
-        background: $neon-green;
+        background: $forest-green;
         border-radius: 50%;
-        box-shadow: $glow-neon-subtle;
+        box-shadow: $glow-forest-subtle;
         animation: pulse-dot 2s ease-in-out infinite;
       }
 
@@ -332,7 +332,7 @@ onUnmounted(() => {
 .neon-text {
   color: $text-primary;
   position: relative;
-  
+
   &::after {
     content: '';
     position: absolute;
@@ -340,8 +340,8 @@ onUnmounted(() => {
     left: 0;
     width: 60px;
     height: 2px;
-    background: $neon-green;
-    box-shadow: $glow-neon-subtle;
+    background: $forest-green;
+    box-shadow: $glow-forest-subtle;
   }
 }
 
@@ -351,7 +351,7 @@ onUnmounted(() => {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   position: relative;
-  
+
   &::after {
     content: '';
     position: absolute;
@@ -360,8 +360,8 @@ onUnmounted(() => {
     transform: translateX(-50%);
     width: 100px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, $neon-green, transparent);
-    box-shadow: $glow-neon-subtle;
+    background: linear-gradient(90deg, transparent, $forest-green, transparent);
+    box-shadow: $glow-forest-subtle;
   }
 }
 

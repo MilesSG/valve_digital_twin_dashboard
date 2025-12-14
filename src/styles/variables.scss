@@ -3,32 +3,42 @@ $font-number: 'Segoe UI', 'SF Pro Display', 'Helvetica Neue', -apple-system, Bli
 $font-title: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
 $font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
 
-// 简约浅色主题 + 荧光绿点缀
-$bg-primary: linear-gradient(135deg, #fafbfc 0%, #f5f7fa 100%);
-$bg-secondary: rgba(255, 255, 255, 0.98);
-$card-bg: rgba(255, 255, 255, 0.95);
-$card-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-$card-border: rgba(226, 232, 240, 0.8);
+// 现代浅色主题 - Glassmorphism风格
+$bg-primary: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+$bg-secondary: rgba(255, 255, 255, 0.85);
+$card-bg: rgba(255, 255, 255, 0.8);
+$card-shadow: 0 8px 32px rgba(31, 38, 135, 0.08);
+$card-shadow-hover: 0 12px 48px rgba(31, 38, 135, 0.12);
+$card-border: rgba(255, 255, 255, 0.18);
 
-// 荧光绿 - 仅作为强调色使用
-$neon-green: #00E676;           // 荧光绿主色
-$neon-green-glow: rgba(0, 230, 118, 0.5);
-$neon-green-light: #69F0AE;     // 浅荧光绿
+// 森林绿色系 - 主要强调色
+$forest-green: #2E7D32;           // 森林绿主色
+$forest-green-light: #4CAF50;     // 浅森林绿
+$forest-green-dark: #1B5E20;      // 深森林绿
+$forest-green-glow: rgba(46, 125, 50, 0.25);
+$forest-green-soft: rgba(76, 175, 80, 0.15);
 
-// 主色调 - 中性专业
-$primary-color: #475569;        // 深灰蓝
-$primary-light: #64748B;
-$primary-dark: #334155;
+// 工业蓝色系 - 次要强调色
+$industrial-blue: #1976D2;        // 工业蓝主色
+$industrial-blue-light: #42A5F5;  // 浅工业蓝
+$industrial-blue-dark: #0D47A1;   // 深工业蓝
+$industrial-blue-glow: rgba(25, 118, 210, 0.25);
+$industrial-blue-soft: rgba(66, 165, 245, 0.15);
 
-// 辅助色 - 中性配色
-$success-color: #00E676;        // 荧光绿
-$success-light: #69F0AE;
-$warning-color: #FFA726;
+// 中性色 - 平衡配色
+$primary-color: #37474F;          // 深灰蓝
+$primary-light: #78909C;
+$primary-dark: #263238;
+
+// 语义色系
+$success-color: #2E7D32;          // 森林绿
+$success-light: #4CAF50;
+$warning-color: #F57C00;
 $warning-light: #FFB74D;
-$danger-color: #EF5350;
-$danger-light: #E57373;
-$info-color: #64748B;
-$info-light: #94A3B8;
+$danger-color: #D32F2F;
+$danger-light: #EF5350;
+$info-color: #1976D2;             // 工业蓝
+$info-light: #42A5F5;
 
 // 文字颜色
 $text-primary: #1E293B;
@@ -39,15 +49,27 @@ $text-tertiary: #94A3B8;
 $border-color: #E2E8F0;
 $divider-color: #F1F5F9;
 
-// 圆角 - 更简洁优雅
-$border-radius: 12px;
-$border-radius-lg: 16px;
-$border-radius-xl: 20px;
+// 圆角 - Claymorphism风格
+$border-radius: 16px;
+$border-radius-lg: 20px;
+$border-radius-xl: 24px;
 
-// 发光效果 - 荧光绿点缀
-$glow-neon: 0 0 20px rgba(0, 230, 118, 0.6), 0 0 40px rgba(0, 230, 118, 0.3);
-$glow-neon-subtle: 0 0 12px rgba(0, 230, 118, 0.4);
-$glow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
+// 柔和阴影系统 - Soft Shadows
+$shadow-soft-sm: 0 2px 16px rgba(0, 0, 0, 0.04);
+$shadow-soft-md: 0 4px 24px rgba(0, 0, 0, 0.06);
+$shadow-soft-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+$shadow-soft-xl: 0 12px 48px rgba(0, 0, 0, 0.10);
+
+// 内阴影 - Claymorphism效果
+$shadow-inset: inset 0 2px 4px rgba(255, 255, 255, 0.5);
+$shadow-inset-soft: inset 0 -2px 4px rgba(0, 0, 0, 0.05);
+
+// 发光效果 - 森林绿和工业蓝
+$glow-forest: 0 0 20px rgba(46, 125, 50, 0.3);
+$glow-forest-subtle: 0 0 12px rgba(46, 125, 50, 0.2);
+$glow-industrial: 0 0 20px rgba(25, 118, 210, 0.3);
+$glow-industrial-subtle: 0 0 12px rgba(25, 118, 210, 0.2);
+$glow-card: 0 4px 16px rgba(0, 0, 0, 0.04);
 
 // 间距系统
 $spacing-xs: 8px;
