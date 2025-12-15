@@ -31,6 +31,18 @@ const productionData = ref([
   { name: '蝶阀生产线', actual: 123, target: 150, efficiency: 82 }
 ])
 
+const xAxisMax = computed(() => {
+  const values = productionData.value.flatMap(item => [item.actual, item.target])
+  const maxVal = Math.max(...values)
+  // 优化：根据最大值动态调整，让进度条更充分利用空间
+  // 如果最大值接近或超过150，使用更大的范围；否则使用更紧凑的范围
+  if (maxVal >= 150) {
+    return Math.ceil((maxVal * 1.12) / 10) * 10
+  } else {
+    return Math.max(150, Math.ceil((maxVal * 1.15) / 10) * 10)
+  }
+})
+
 // 计算平均效率
 const avgEfficiency = computed(() => {
   const total = productionData.value.reduce((sum, item) => sum + item.efficiency, 0)
@@ -89,26 +101,28 @@ function initChart() {
       }
     },
     grid: {
-      left: '3%',
-      right: '12%',
-      bottom: '2%',
-      top: '5%',
+      left: '1%',
+      right: '1%',
+      bottom: '4%',
+      top: '8%',
       containLabel: true
     },
     xAxis: {
       type: 'value',
-      max: 180,
+      max: xAxisMax.value,
       axisLabel: {
         color: '#64748B',
         fontSize: 12,
-        formatter: '{value}'
+        formatter: '{value}',
+        margin: 8
       },
       splitLine: {
         lineStyle: {
           color: '#E2E8F0',
           type: 'dashed'
         }
-      }
+      },
+      boundaryGap: [0, 0.02]
     },
     yAxis: {
       type: 'category',
@@ -133,7 +147,7 @@ function initChart() {
         type: 'bar',
         data: data.map(d => d.target),
         barWidth: 24,
-        barCategoryGap: '40%',
+        barCategoryGap: '35%',
         itemStyle: {
           color: 'rgba(0, 0, 0, 0.04)',
           borderRadius: [0, 12, 12, 0]
@@ -164,13 +178,14 @@ function initChart() {
             shadowColor: getEfficiencyColor(d.efficiency).start + '30'
           }
         })),
-        barWidth: 24,
+        barWidth: 26,
         label: {
           show: true,
           position: 'right',
           color: '#1E293B',
           fontWeight: 700,
           fontSize: 14,
+          distance: 8,
           formatter: (params: any) => {
             const item = data[params.dataIndex]
             return `${params.value}  {efficiency|${item.efficiency}%}`
@@ -180,7 +195,7 @@ function initChart() {
               fontSize: 13,
               fontWeight: 700,
               color: '#64748B',
-              padding: [0, 0, 0, 6]
+              padding: [0, 0, 0, 8]
             }
           }
         },
@@ -208,6 +223,9 @@ function initChart() {
 function updateChart() {
   const data = productionData.value
   chartInstance?.setOption({
+    xAxis: {
+      max: xAxisMax.value
+    },
     yAxis: {
       data: data.map(d => d.name)
     },
